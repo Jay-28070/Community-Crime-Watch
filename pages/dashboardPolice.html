@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
+    <script type="module" src="../js/scriptPolice.js" defer></script>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <title>Police Dashboard - Community Crime Watch</title>
+</head>
+<body id="police-dashboard">
+    <nav>
+        <div class="main-logo">
+            <img src="../assets/icons/logo.svg" alt="Logo">
+            <a href="dashboardPolice.html">Community Crime Watch - Police</a>
+        </div>
+        <div class="links">
+            <a class="login-btn" id="logout-btn" href="#">Log out</a>
+        </div>
+    </nav>
+
+    <!-- Hero section -->
+    <div class="dashboard-hero police-dashboard-hero">
+        <h1>Welcome, Officer <span id="user-name"></span></h1>
+        <p>Manage crime reports and analyze trends in your jurisdiction</p>
+    </div>
+
+    <!-- Feature cards -->
+    <div class="dashboard-features">
+        <div class="feature-card">
+            <img src="../assets/icons/bell-ringing.svg" alt="Manage Alerts">
+            <h2>Manage Alerts</h2>
+            <p>View, confirm, and resolve crime reports with priority levels and detailed information.</p>
+            <button class="feature-btn" onclick="window.location.href='alertsPolice.html'">Manage</button>
+        </div>
+
+        <div class="feature-card">
+            <img src="../assets/icons/trend-up.svg" alt="Crime Trends">
+            <h2>Crime Trends</h2>
+            <p>Analyze patterns, identify hotspots, and track crime statistics over time.</p>
+            <button class="feature-btn" onclick="window.location.href='trends.html'">Analyze</button>
+        </div>
+
+        <div class="feature-card">
+            <img src="../assets/icons/map-trifold.svg" alt="Crime Map">
+            <h2>Interactive Map</h2>
+            <p>View all reported crimes with real-time updates and location tracking.</p>
+            <button class="feature-btn" onclick="window.location.href='map.html'">View Map</button>
+        </div>
+
+        <div class="feature-card">
+            <img src="../assets/icons/camera.svg" alt="Report Crime">
+            <h2>File Report</h2>
+            <p>Submit official police reports with AI-powered categorization.</p>
+            <button class="feature-btn" onclick="window.location.href='report.html'">Report</button>
+        </div>
+    </div>
+</body>
+</html>
+

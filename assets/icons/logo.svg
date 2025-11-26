@@ -1,0 +1,16 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Shield background -->
+  <path d="M20 2L4 8V18C4 27.5 10.5 36 20 38C29.5 36 36 27.5 36 18V8L20 2Z" fill="#3988FF"/>
+  
+  <!-- Inner shield detail -->
+  <path d="M20 5L7 10V18C7 25.5 12 32.5 20 35C28 32.5 33 25.5 33 18V10L20 5Z" fill="#5A9FFF" opacity="0.8"/>
+  
+  <!-- Eye symbol (watching/surveillance) -->
+  <ellipse cx="20" cy="19" rx="8" ry="5" fill="white"/>
+  <circle cx="20" cy="19" r="3" fill="#3988FF"/>
+  <circle cx="20" cy="19" r="1.5" fill="white"/>
+  
+  <!-- Alert/notification dot -->
+  <circle cx="30" cy="10" r="4" fill="#FF4757"/>
+  <circle cx="30" cy="10" r="2" fill="white" opacity="0.5"/>
+</svg>

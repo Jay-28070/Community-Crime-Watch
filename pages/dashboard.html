@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
+    <script type="module" src="../js/script.js" defer></script>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <title>Dashboard - Community Crime Watch</title>
+</head>
+<body>
+    <nav>
+        <div class="main-logo">
+            <img src="../assets/icons/logo.svg" alt="Logo">
+            <a href="index.html">Community Crime Watch</a>
+        </div>
+        <div class="links">
+            <a class="login-btn" id="logout-btn" href="#">Log out</a>
+        </div>
+    </nav>
+
+    <!-- Hero section -->
+    <div class="dashboard-hero">
+        <h1>Welcome, <span id="user-name"></span></h1>
+        <p>Access all features to report and track crimes in your community</p>
+    </div>
+
+    <!-- Feature cards -->
+    <div class="dashboard-features">
+        <div class="feature-card">
+            <img src="../assets/icons/camera.svg" alt="Report Crime">
+            <h2>Report Crime</h2>
+            <p>Submit reports via text, photo, or voice. AI categorizes incidents automatically.</p>
+            <button class="feature-btn" onclick="window.location.href='report.html'">Go</button>
+        </div>
+
+        <div class="feature-card">
+            <img src="../assets/icons/map-trifold.svg" alt="Crime Map">
+            <h2>Interactive Map</h2>
+            <p>View reported crimes and hotspots with color-coded risk levels in your area.</p>
+            <button class="feature-btn" onclick="window.location.href='map.html'">View Map</button>
+        </div>
+
+
+
+        <div class="feature-card">
+            <img src="../assets/icons/bell-ringing.svg" alt="Safety Alerts">
+            <h2>Safety Alerts</h2>
+            <p>Receive notifications when incidents occur nearby and get preventive advice.</p>
+            <button class="feature-btn" onclick="window.location.href='alerts.html'">View Alerts</button>
+        </div>
+
+        <div class="feature-card">
+            <img src="../assets/icons/shield-check.svg" alt="Area Safety">
+            <h2>Area Safety Checker</h2>
+            <p>Check if you're in an unsafe area or search any location for crime statistics.</p>
+            <button class="feature-btn" onclick="window.location.href='safety.html'">Check Safety</button>
+        </div>
+    </div>
+</body>
+</html>
+

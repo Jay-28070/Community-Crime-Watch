@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
+    <script type="module" src="../js/script.js" defer></script>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <title>Community Crime Watch - Sign Up</title>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav>
+        <div class="main-logo">
+            <img src="../assets/icons/logo.svg" alt="Logo">
+            <a href="index.html">Community Crime Watch</a>
+        </div>
+        <div class="links">
+            <a class="login-btn" href="login.html">Log in</a>
+            <a class="signup-button" href="signup.html">Sign up</a>
+        </div>
+    </nav>
+
+    <!-- Signup Form -->
+    <div class="signup-form">
+        <div class="signup-form-contents">
+            <img class="logo" src="../assets/icons/shield-check.svg" alt="Logo">
+            <h1>Create Account</h1>
+            <h2>Join the community to report and track crime</h2>
+
+            <div class="form">
+                <form id="signup-form">
+                    <!-- Role Selection -->
+                    <div class="form-group">
+                        <label for="role">I am a</label>
+                        <select id="role" name="role" required>
+                            <option value="user">Community Member</option>
+                            <option value="police">Police Officer</option>
+                        </select>
+                    </div>
+
+                    <!-- Police Badge Number (shown only for police) -->
+                    <div class="form-group" id="badge-group" style="display: none;">
+                        <label for="badge-number">Badge Number</label>
+                        <input type="text" id="badge-number" name="badge-number" placeholder="Enter your badge number">
+                    </div>
+
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="form-group">
+                        <label for="confirm-password">Confirm Password</label>
+                        <input type="password" id="confirm-password" name="confirm-password"
+                            placeholder="Confirm your password" required>
+                    </div>
+
+                    <!-- Submit button -->
+                    <button type="submit" class="btn">Sign Up</button>
+                    <!-- Divider -->
+                    <div class="divider">OR</div>
+
+                    <!-- Google Button -->
+                    <button type="button" class="google-btn" id="google-login">
+                        <img src="../assets/icons/icons8-google.svg" alt="Google icon">
+                        Log in with Google
+                    </button>
+
+                    <!-- Login link -->
+                    <p>Already have an account? <a href="login.html">Log in</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
