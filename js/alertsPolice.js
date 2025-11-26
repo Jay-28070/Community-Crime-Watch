@@ -22,13 +22,13 @@ onAuthStateChanged(auth, async (user) => {
         window.location.href = "login.html";
         return;
     }
-    
+
     const userDoc = await getDoc(doc(db, "users", user.uid));
     if (!userDoc.exists() || userDoc.data().role !== 'police') {
         window.location.href = "dashboard.html";
         return;
     }
-    
+
     loadAlerts();
 });
 
@@ -57,23 +57,6 @@ if (homeLink) {
     });
 }
 
-// Priority levels based on crime type
-const priorityLevels = {
-    "Arson": "critical",
-    "Robbery": "critical",
-    "Burglary": "critical",
-    "Assault": "high",
-    "Vehicle Theft": "high",
-    "Theft": "high",
-    "Drug Activity": "medium",
-    "Harassment": "medium",
-    "Fraud": "medium",
-    "Vandalism": "low",
-    "Trespassing": "low",
-    "Suspicious Activity": "low",
-    "Other": "low"
-};
-
 const priorityColors = {
     "critical": "#c0392b",
     "high": "#e74c3c",
@@ -81,20 +64,33 @@ const priorityColors = {
     "low": "#f39c12"
 };
 
+// Track current incident type filter
+let currentIncidentType = 'personal'; // Default to personal incidents
+
 function loadAlerts() {
     let reports = JSON.parse(localStorage.getItem("crimeReports") || "[]");
-    
-    // Add status and priority if not present
+
+    // Add status if not present, use urgency field for priority
     reports = reports.map(report => ({
         ...report,
         status: report.status || 'pending',
-        priority: report.priority || priorityLevels[report.type] || 'low'
+        priority: report.urgency || report.priority || 'low',
+        incidentType: report.incidentType || 'other' // Default to 'other' for old reports
     }));
-    
+
     // Save updated reports
     localStorage.setItem("crimeReports", JSON.stringify(reports));
-    
-    // Sort by priority and date
+
+    // Update counts
+    const personalCount = reports.filter(r => r.incidentType === 'personal').length;
+    const generalCount = reports.filter(r => r.incidentType === 'other').length;
+    document.getElementById('personal-count').textContent = personalCount;
+    document.getElementById('general-count').textContent = generalCount;
+
+    // Filter by current incident type
+    reports = reports.filter(r => r.incidentType === currentIncidentType);
+
+    // Sort by priority and date (critical first)
     reports.sort((a, b) => {
         const priorityOrder = { critical: 0, high: 1, medium: 2, low: 3 };
         if (priorityOrder[a.priority] !== priorityOrder[b.priority]) {
@@ -102,20 +98,41 @@ function loadAlerts() {
         }
         return new Date(b.reportedAt) - new Date(a.reportedAt);
     });
-    
+
     displayAlerts(reports);
 }
+
+// Incident type tab switching
+document.querySelectorAll('.incident-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+        // Update active tab
+        document.querySelectorAll('.incident-tab').forEach(t => {
+            t.classList.remove('active');
+            t.style.borderBottomColor = 'transparent';
+            t.style.color = '#666';
+        });
+        tab.classList.add('active');
+        tab.style.borderBottomColor = tab.dataset.incidentType === 'personal' ? 'rgb(231, 76, 60)' : 'rgb(52, 152, 219)';
+        tab.style.color = tab.dataset.incidentType === 'personal' ? 'rgb(231, 76, 60)' : 'rgb(52, 152, 219)';
+
+        // Update current filter
+        currentIncidentType = tab.dataset.incidentType;
+
+        // Reload alerts
+        loadAlerts();
+    });
+});
 
 function displayAlerts(reports) {
     const alertsList = document.getElementById("alerts-list");
     const noAlerts = document.getElementById("no-alerts");
-    
+
     if (reports.length === 0) {
         alertsList.innerHTML = "";
         noAlerts.style.display = "flex";
         return;
     }
-    
+
     noAlerts.style.display = "none";
     alertsList.innerHTML = reports.map(report => createPoliceAlertCard(report)).join("");
 }
@@ -124,14 +141,26 @@ function createPoliceAlertCard(report) {
     const date = new Date(report.dateTime);
     const reportedDate = new Date(report.reportedAt);
     const priorityColor = priorityColors[report.priority];
-    
+
     const statusBadges = {
         'pending': '<span class="status-badge status-pending">Pending Review</span>',
         'confirmed': '<span class="status-badge status-confirmed">Confirmed</span>',
         'in-progress': '<span class="status-badge status-in-progress">In Progress</span>',
         'resolved': '<span class="status-badge status-resolved">Resolved</span>'
     };
-    
+
+    const incidentTypeText = report.incidentType === 'personal' ?
+        '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 5px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> PERSONAL INCIDENT - Victim requires follow-up' :
+        '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 5px;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Community Report';
+
+    // For personal incidents, use private location data (only visible to police)
+    const displayLat = report.incidentType === 'personal' ? (report.privateLat || report.lat) : report.lat;
+    const displayLng = report.incidentType === 'personal' ? (report.privateLng || report.lng) : report.lng;
+    const displayAddress = report.incidentType === 'personal' ? (report.privateAddress || report.address) : report.address;
+
+    const locationDisplay = displayAddress || (displayLat && displayLng ? `${displayLat.toFixed(4)}, ${displayLng.toFixed(4)}` : 'Not provided');
+    const privacyNote = report.incidentType === 'personal' ? '<br><small style="color: #856404;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 3px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Private - Only visible to police</small>' : '';
+
     return `
         <div class="police-alert-card" data-id="${report.id}" data-status="${report.status}" data-priority="${report.priority}" data-type="${report.type}">
             <div class="police-alert-header">
@@ -150,24 +179,63 @@ function createPoliceAlertCard(report) {
             </div>
             <div class="police-alert-body">
                 <h3>Incident Report #${report.id}</h3>
+                ${report.incidentType ? `
+                <div class="incident-type-badge" style="background-color: ${report.incidentType === 'personal' ? '#e74c3c' : '#3498db'}; color: white; padding: 8px 12px; border-radius: 6px; margin-bottom: 15px; font-size: 14px; font-weight: 600;">
+                    ${incidentTypeText}
+                </div>
+                ` : ''}
                 <div class="alert-details-grid">
                     <div class="detail-item">
-                        <strong>📅 Occurred:</strong> ${date.toLocaleString()}
+                        <strong>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 5px;">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="16" y1="2" x2="16" y2="6"/>
+                                <line x1="8" y1="2" x2="8" y2="6"/>
+                                <line x1="3" y1="10" x2="21" y2="10"/>
+                            </svg>
+                            Occurred:
+                        </strong> ${date.toLocaleString()}
+                    </div>
+                    <div class="detail-item" style="${report.incidentType === 'personal' ? 'background-color: #fff3cd; padding: 8px; border-radius: 4px;' : ''}">
+                        <strong>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 5px;">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                            Location:
+                        </strong> ${locationDisplay}${privacyNote}
                     </div>
                     <div class="detail-item">
-                        <strong>📍 Location:</strong> ${report.address || `${report.lat.toFixed(4)}, ${report.lng.toFixed(4)}`}
-                    </div>
-                    <div class="detail-item">
-                        <strong>👤 Reported by:</strong> ${report.reporterName}
+                        <strong>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 5px;">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                            Reported by:
+                        </strong> ${report.reporterName}
                     </div>
                     ${report.contact ? `
-                    <div class="detail-item">
-                        <strong>📞 Contact:</strong> ${report.contact}
+                    <div class="detail-item" style="${report.incidentType === 'personal' ? 'background-color: #fff3cd; padding: 8px; border-radius: 4px;' : ''}">
+                        <strong>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 5px;">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                            </svg>
+                            Contact:
+                        </strong> <a href="tel:${report.contact}" style="color: #2980b9; text-decoration: none;">${report.contact}</a>
+                        ${report.incidentType === 'personal' ? '<br><small style="color: #856404;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 3px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Required for victim follow-up</small>' : ''}
                     </div>
                     ` : ''}
                     ${report.witnesses ? `
                     <div class="detail-item">
-                        <strong>👥 Witnesses:</strong> ${report.witnesses}
+                        <strong>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 5px;">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                            Witnesses:
+                        </strong> ${report.witnesses}
                     </div>
                     ` : ''}
                 </div>
@@ -202,13 +270,15 @@ function createPoliceAlertCard(report) {
                             Resolve
                         </button>
                     ` : ''}
-                    <button class="action-btn map-btn" onclick="viewOnMap(${report.id}, ${report.lat}, ${report.lng})">
+                    ${displayLat && displayLng ? `
+                    <button class="action-btn map-btn" onclick="viewOnMap(${report.id}, ${displayLat}, ${displayLng})">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
                             <circle cx="12" cy="10" r="3"/>
                         </svg>
                         View on Map
                     </button>
+                    ` : ''}
                 </div>
             </div>
         </div>
@@ -216,21 +286,21 @@ function createPoliceAlertCard(report) {
 }
 
 // Update status function
-window.updateStatus = function(reportId, newStatus) {
+window.updateStatus = function (reportId, newStatus) {
     let reports = JSON.parse(localStorage.getItem("crimeReports") || "[]");
     const reportIndex = reports.findIndex(r => r.id === reportId);
-    
+
     if (reportIndex !== -1) {
         const oldStatus = reports[reportIndex].status;
         reports[reportIndex].status = newStatus;
         reports[reportIndex].lastUpdated = new Date().toISOString();
         localStorage.setItem("crimeReports", JSON.stringify(reports));
-        
+
         // Create notification for user if status changed to confirmed, in-progress, or resolved
         if (newStatus !== 'pending' && newStatus !== oldStatus) {
             createUserNotification(reportId, newStatus);
         }
-        
+
         loadAlerts();
     }
 };
@@ -238,12 +308,12 @@ window.updateStatus = function(reportId, newStatus) {
 // Create notification for user
 function createUserNotification(reportId, status) {
     let notifications = JSON.parse(localStorage.getItem("userNotifications") || "[]");
-    
+
     // Check if notification already exists for this status change
     const existingNotification = notifications.find(
         n => n.reportId === reportId && n.status === status
     );
-    
+
     if (!existingNotification) {
         notifications.push({
             id: Date.now(),
@@ -252,13 +322,13 @@ function createUserNotification(reportId, status) {
             timestamp: new Date().toISOString(),
             read: false
         });
-        
+
         localStorage.setItem("userNotifications", JSON.stringify(notifications));
     }
 }
 
 // View on map function
-window.viewOnMap = function(reportId, lat, lng) {
+window.viewOnMap = function (reportId, lat, lng) {
     sessionStorage.setItem('selectedReport', JSON.stringify({
         id: reportId,
         lat: lat,
@@ -276,29 +346,33 @@ function applyFilters() {
     const statusFilter = document.getElementById("filter-status").value;
     const priorityFilter = document.getElementById("filter-priority").value;
     const typeFilter = document.getElementById("filter-type").value;
-    
+
     let reports = JSON.parse(localStorage.getItem("crimeReports") || "[]");
-    
-    // Add status and priority if not present
+
+    // Add status, priority, and incident type if not present
     reports = reports.map(report => ({
         ...report,
         status: report.status || 'pending',
-        priority: report.priority || priorityLevels[report.type] || 'low'
+        priority: report.urgency || report.priority || 'low',
+        incidentType: report.incidentType || 'other'
     }));
-    
-    // Apply filters
+
+    // Filter by current incident type tab
+    reports = reports.filter(r => r.incidentType === currentIncidentType);
+
+    // Apply other filters
     if (statusFilter !== "all") {
         reports = reports.filter(r => r.status === statusFilter);
     }
-    
+
     if (priorityFilter !== "all") {
         reports = reports.filter(r => r.priority === priorityFilter);
     }
-    
+
     if (typeFilter !== "all") {
         reports = reports.filter(r => r.type === typeFilter);
     }
-    
+
     // Sort by priority and date
     reports.sort((a, b) => {
         const priorityOrder = { critical: 0, high: 1, medium: 2, low: 3 };
@@ -307,7 +381,7 @@ function applyFilters() {
         }
         return new Date(b.reportedAt) - new Date(a.reportedAt);
     });
-    
+
     displayAlerts(reports);
 }
 
@@ -319,7 +393,7 @@ document.getElementById('cases-library-btn').addEventListener('click', () => {
 
 function showCasesLibrary() {
     const allReports = JSON.parse(localStorage.getItem("crimeReports") || "[]");
-    
+
     // Create modal
     const modal = document.createElement('div');
     modal.className = 'cases-modal';
@@ -346,15 +420,15 @@ function showCasesLibrary() {
             </div>
         </div>
     `;
-    
+
     document.body.appendChild(modal);
-    
+
     // Tab switching
     modal.querySelectorAll('.case-tab').forEach(tab => {
         tab.addEventListener('click', () => {
             modal.querySelectorAll('.case-tab').forEach(t => t.classList.remove('active'));
             tab.classList.add('active');
-            
+
             const status = tab.dataset.status;
             const filtered = status === 'all' ? allReports : allReports.filter(r => r.status === status);
             modal.querySelector('#cases-list').innerHTML = filtered.map(r => createCaseItem(r)).join('');
@@ -366,7 +440,7 @@ function createCaseItem(report) {
     const date = new Date(report.reportedAt);
     const statusClass = report.status || 'pending';
     const priorityColor = priorityColors[report.priority] || '#95a5a6';
-    
+
     return `
         <div class="case-item">
             <div class="case-item-header">
@@ -394,16 +468,16 @@ function createCaseItem(report) {
 }
 
 // Delete case function
-window.deleteCase = function(reportId) {
+window.deleteCase = function (reportId) {
     if (confirm('Are you sure you want to permanently delete this case?')) {
         let reports = JSON.parse(localStorage.getItem("crimeReports") || "[]");
         reports = reports.filter(r => r.id !== reportId);
         localStorage.setItem("crimeReports", JSON.stringify(reports));
-        
+
         // Close and reopen modal to refresh
         document.querySelector('.cases-modal')?.remove();
         showCasesLibrary();
-        
+
         // Reload alerts if on alerts page
         if (typeof loadAlerts === 'function') {
             loadAlerts();

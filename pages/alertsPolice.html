@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="../assets/css/styles.css">
     <title>Manage Alerts - Police Dashboard</title>
 </head>
+
 <body id="police-alerts-page">
     <nav>
         <div class="main-logo">
@@ -25,15 +27,40 @@
     </div>
 
     <div class="alerts-container">
+        <!-- Incident Type Tabs -->
+        <div class="incident-type-tabs"
+            style="display: flex; gap: 15px; margin-bottom: 20px; border-bottom: 2px solid #e0e0e0;">
+            <button class="incident-tab active" data-incident-type="personal"
+                style="flex: 1; padding: 15px; background: none; border: none; border-bottom: 3px solid rgb(231, 76, 60); color: rgb(231, 76, 60); font-weight: 600; font-size: 16px; cursor: pointer; transition: all 0.3s;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    style="vertical-align: middle; margin-right: 8px;">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                </svg>
+                Personal Incidents (<span id="personal-count">0</span>)
+            </button>
+            <button class="incident-tab" data-incident-type="other"
+                style="flex: 1; padding: 15px; background: none; border: none; border-bottom: 3px solid transparent; color: #666; font-weight: 600; font-size: 16px; cursor: pointer; transition: all 0.3s;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    style="vertical-align: middle; margin-right: 8px;">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+                General Reports (<span id="general-count">0</span>)
+            </button>
+        </div>
+
         <div class="alerts-filters">
             <button class="cases-library-btn" id="cases-library-btn" style="background-color: rgb(231, 76, 60);">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
                 </svg>
                 Cases Library
             </button>
-            
+
             <select id="filter-status" class="filter-select">
                 <option value="all">All Status</option>
                 <option value="pending">Pending</option>
@@ -49,7 +76,7 @@
                 <option value="medium">Medium</option>
                 <option value="low">Low</option>
             </select>
-            
+
             <select id="filter-type" class="filter-select">
                 <option value="all">All Crime Types</option>
                 <option value="Theft">Theft</option>
@@ -73,9 +100,10 @@
         </div>
 
         <div id="no-alerts" class="no-alerts" style="display: none;">
-            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity: 0.3; margin-bottom: 20px;">
-                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-                <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                style="opacity: 0.3; margin-bottom: 20px;">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                <path d="M13.73 21a2 2 0 0 1-3.46 0" />
             </svg>
             <h3>No alerts found</h3>
             <p>There are no crime reports matching your filters.</p>
@@ -84,13 +112,13 @@
 
     <script type="module">
         import { goToHomeDashboard } from './js/authUtils.js';
-        
+
         // Home navigation
         document.getElementById('home-link').addEventListener('click', (e) => {
             e.preventDefault();
             goToHomeDashboard();
         });
-        
+
         document.getElementById('home-btn').addEventListener('click', (e) => {
             e.preventDefault();
             goToHomeDashboard();
@@ -98,5 +126,5 @@
     </script>
     <script type="module" src="../js/alertsPolice.js"></script>
 </body>
-</html>
 
+</html>

@@ -11,6 +11,18 @@
 </head>
 
 <body>
+    <!-- Loading Overlay -->
+    <div class="auth-loader-overlay" id="auth-loader">
+        <div class="loader-content">
+            <div class="spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-ring"></div>
+                <div class="spinner-ring"></div>
+            </div>
+            <div class="loader-text">Logging you in...</div>
+        </div>
+    </div>
+
     <nav>
         <div class="main-logo">
             <img src="../assets/icons/logo.svg" alt="Logo">
@@ -43,7 +55,8 @@
                     <!-- Police Badge Number (shown only for police) -->
                     <div class="form-group" id="login-badge-group" style="display: none;">
                         <label for="login-badge-number">Badge Number</label>
-                        <input type="text" id="login-badge-number" name="badgeNumber" placeholder="Enter your badge number">
+                        <input type="text" id="login-badge-number" name="badgeNumber"
+                            placeholder="Enter your badge number">
                     </div>
 
                     <!-- Email -->
@@ -79,4 +92,3 @@
 </body>
 
 </html>
-

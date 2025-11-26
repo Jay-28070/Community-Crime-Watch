@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="../assets/css/styles.css">
     <title>Report Crime - Community Crime Watch</title>
 </head>
+
 <body>
     <nav>
         <div class="main-logo">
@@ -35,28 +37,33 @@
             <!-- AI Input Methods -->
             <div class="ai-input-section">
                 <h3>Report Incident Using AI</h3>
-                <p class="ai-subtitle">Choose how you'd like to report the incident - our AI will automatically categorize it</p>
-                
+                <p class="ai-subtitle">Choose how you'd like to report the incident - our AI will automatically
+                    categorize it</p>
+
                 <div class="input-method-tabs">
                     <button type="button" class="tab-btn active" data-tab="text">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
                         </svg>
                         Text
                     </button>
                     <button type="button" class="tab-btn" data-tab="voice">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
-                            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
-                            <line x1="12" y1="19" x2="12" y2="23"/>
-                            <line x1="8" y1="23" x2="16" y2="23"/>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
+                            <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                            <line x1="12" y1="19" x2="12" y2="23" />
+                            <line x1="8" y1="23" x2="16" y2="23" />
                         </svg>
                         Voice
                     </button>
                     <button type="button" class="tab-btn" data-tab="photo">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
-                            <circle cx="12" cy="13" r="4"/>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path
+                                d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+                            <circle cx="12" cy="13" r="4" />
                         </svg>
                         Photo
                     </button>
@@ -66,21 +73,23 @@
                 <div class="tab-content active" id="text-tab">
                     <div class="form-group">
                         <label for="ai-description">Describe what happened</label>
-                        <textarea id="ai-description" placeholder="E.g., 'I saw someone breaking into a car on Main Street...'"></textarea>
+                        <textarea id="ai-description"
+                            placeholder="E.g., 'I saw someone breaking into a car on Main Street...'"></textarea>
                     </div>
                     <button type="button" class="ai-analyze-btn" id="analyze-text-btn">
                         <span class="btn-text">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 5px;">
-                                <circle cx="12" cy="12" r="10"/>
-                                <circle cx="12" cy="12" r="3"/>
-                                <line x1="12" y1="2" x2="12" y2="6"/>
-                                <line x1="12" y1="18" x2="12" y2="22"/>
-                                <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/>
-                                <line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/>
-                                <line x1="2" y1="12" x2="6" y2="12"/>
-                                <line x1="18" y1="12" x2="22" y2="12"/>
-                                <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/>
-                                <line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" style="vertical-align: middle; margin-right: 5px;">
+                                <circle cx="12" cy="12" r="10" />
+                                <circle cx="12" cy="12" r="3" />
+                                <line x1="12" y1="2" x2="12" y2="6" />
+                                <line x1="12" y1="18" x2="12" y2="22" />
+                                <line x1="4.93" y1="4.93" x2="7.76" y2="7.76" />
+                                <line x1="16.24" y1="16.24" x2="19.07" y2="19.07" />
+                                <line x1="2" y1="12" x2="6" y2="12" />
+                                <line x1="18" y1="12" x2="22" y2="12" />
+                                <line x1="4.93" y1="19.07" x2="7.76" y2="16.24" />
+                                <line x1="16.24" y1="7.76" x2="19.07" y2="4.93" />
                             </svg>
                             Analyze with AI
                         </span>
@@ -92,17 +101,19 @@
                 <div class="tab-content" id="voice-tab">
                     <div class="voice-recorder">
                         <div class="voice-status" id="voice-status">
-                            <svg class="status-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
-                                <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
-                                <line x1="12" y1="19" x2="12" y2="23"/>
-                                <line x1="8" y1="23" x2="16" y2="23"/>
+                            <svg class="status-icon" width="48" height="48" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
+                                <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                                <line x1="12" y1="19" x2="12" y2="23" />
+                                <line x1="8" y1="23" x2="16" y2="23" />
                             </svg>
                             <span class="status-text">Click to start recording</span>
                         </div>
                         <button type="button" class="voice-btn" id="voice-record-btn">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="vertical-align: middle; margin-right: 5px;">
-                                <circle cx="12" cy="12" r="10"/>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"
+                                style="vertical-align: middle; margin-right: 5px;">
+                                <circle cx="12" cy="12" r="10" />
                             </svg>
                             Start Recording
                         </button>
@@ -110,17 +121,18 @@
                     </div>
                     <button type="button" class="ai-analyze-btn" id="analyze-voice-btn" style="display: none;">
                         <span class="btn-text">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 5px;">
-                                <circle cx="12" cy="12" r="10"/>
-                                <circle cx="12" cy="12" r="3"/>
-                                <line x1="12" y1="2" x2="12" y2="6"/>
-                                <line x1="12" y1="18" x2="12" y2="22"/>
-                                <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/>
-                                <line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/>
-                                <line x1="2" y1="12" x2="6" y2="12"/>
-                                <line x1="18" y1="12" x2="22" y2="12"/>
-                                <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/>
-                                <line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" style="vertical-align: middle; margin-right: 5px;">
+                                <circle cx="12" cy="12" r="10" />
+                                <circle cx="12" cy="12" r="3" />
+                                <line x1="12" y1="2" x2="12" y2="6" />
+                                <line x1="12" y1="18" x2="12" y2="22" />
+                                <line x1="4.93" y1="4.93" x2="7.76" y2="7.76" />
+                                <line x1="16.24" y1="16.24" x2="19.07" y2="19.07" />
+                                <line x1="2" y1="12" x2="6" y2="12" />
+                                <line x1="18" y1="12" x2="22" y2="12" />
+                                <line x1="4.93" y1="19.07" x2="7.76" y2="16.24" />
+                                <line x1="16.24" y1="7.76" x2="19.07" y2="4.93" />
                             </svg>
                             Analyze with AI
                         </span>
@@ -131,37 +143,42 @@
                 <!-- Photo Input Tab -->
                 <div class="tab-content" id="photo-tab">
                     <div class="photo-upload">
-                        <input type="file" id="photo-input" accept="image/*" capture="environment" style="display: none;">
+                        <input type="file" id="photo-input" accept="image/*" capture="environment"
+                            style="display: none;">
                         <label for="photo-input" class="photo-upload-label">
-                            <svg class="upload-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
-                                <circle cx="12" cy="13" r="4"/>
+                            <svg class="upload-icon" width="48" height="48" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+                                <circle cx="12" cy="13" r="4" />
                             </svg>
                             <div class="upload-text">Click to take photo or upload image</div>
                         </label>
                         <div id="photo-preview" class="photo-preview" style="display: none;">
                             <img id="preview-image" alt="Preview">
                             <button type="button" class="remove-photo-btn" id="remove-photo-btn">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                                    <line x1="18" y1="6" x2="6" y2="18"/>
-                                    <line x1="6" y1="6" x2="18" y2="18"/>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="3">
+                                    <line x1="18" y1="6" x2="6" y2="18" />
+                                    <line x1="6" y1="6" x2="18" y2="18" />
                                 </svg>
                             </button>
                         </div>
                     </div>
                     <button type="button" class="ai-analyze-btn" id="analyze-photo-btn" style="display: none;">
                         <span class="btn-text">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 5px;">
-                                <circle cx="12" cy="12" r="10"/>
-                                <circle cx="12" cy="12" r="3"/>
-                                <line x1="12" y1="2" x2="12" y2="6"/>
-                                <line x1="12" y1="18" x2="12" y2="22"/>
-                                <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/>
-                                <line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/>
-                                <line x1="2" y1="12" x2="6" y2="12"/>
-                                <line x1="18" y1="12" x2="22" y2="12"/>
-                                <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/>
-                                <line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" style="vertical-align: middle; margin-right: 5px;">
+                                <circle cx="12" cy="12" r="10" />
+                                <circle cx="12" cy="12" r="3" />
+                                <line x1="12" y1="2" x2="12" y2="6" />
+                                <line x1="12" y1="18" x2="12" y2="22" />
+                                <line x1="4.93" y1="4.93" x2="7.76" y2="7.76" />
+                                <line x1="16.24" y1="16.24" x2="19.07" y2="19.07" />
+                                <line x1="2" y1="12" x2="6" y2="12" />
+                                <line x1="18" y1="12" x2="22" y2="12" />
+                                <line x1="4.93" y1="19.07" x2="7.76" y2="16.24" />
+                                <line x1="16.24" y1="7.76" x2="19.07" y2="4.93" />
                             </svg>
                             Analyze with AI
                         </span>
@@ -172,8 +189,10 @@
                 <!-- AI Results -->
                 <div id="ai-results" class="ai-results" style="display: none;">
                     <div class="ai-results-header">
-                        <svg class="ai-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                        <svg class="ai-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <polygon
+                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                         </svg>
                         <h4>AI Analysis Complete</h4>
                     </div>
@@ -187,8 +206,9 @@
                             <p id="ai-summary"></p>
                         </div>
                         <button type="button" class="use-ai-btn" id="use-ai-results-btn">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 5px;">
-                                <polyline points="20 6 9 17 4 12"/>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" style="vertical-align: middle; margin-right: 5px;">
+                                <polyline points="20 6 9 17 4 12" />
                             </svg>
                             Use These Results
                         </button>
@@ -199,6 +219,18 @@
             <div class="divider-line"></div>
 
             <!-- Manual Form Fields -->
+            <div class="form-group">
+                <label for="incident-type">Who was affected? <span class="required">*</span></label>
+                <select id="incident-type" name="incidentType" required>
+                    <option value="">Select who was affected</option>
+                    <option value="personal">This happened to me personally</option>
+                    <option value="other">Someone else / General community report</option>
+                </select>
+                <small style="color: #666; font-size: 13px; margin-top: 5px; display: block;">
+                    If this happened to you, contact information will be required for police follow-up
+                </small>
+            </div>
+
             <div class="form-group">
                 <label for="crime-type">Crime Type <span class="required">*</span></label>
                 <select id="crime-type" name="crimeType" required>
@@ -221,7 +253,8 @@
 
             <div class="form-group">
                 <label for="description">Description <span class="required">*</span></label>
-                <textarea id="description" name="description" placeholder="Provide details about the incident..." required></textarea>
+                <textarea id="description" name="description" placeholder="Provide details about the incident..."
+                    required></textarea>
             </div>
 
             <div class="form-group">
@@ -233,9 +266,10 @@
                 <label for="address">Location <span class="required">*</span></label>
                 <input type="text" id="address" name="address" placeholder="Enter street address or landmark" required>
                 <button type="button" class="location-btn" id="get-location-btn">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 5px;">
-                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                        <circle cx="12" cy="10" r="3"/>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        style="vertical-align: middle; margin-right: 5px;">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                        <circle cx="12" cy="10" r="3" />
                     </svg>
                     Use My Current Location
                 </button>
@@ -253,9 +287,16 @@
                 <input type="text" id="reporter-name" name="reporterName" placeholder="Anonymous if left blank">
             </div>
 
-            <div class="form-group">
-                <label for="contact">Contact Information (Optional)</label>
-                <input type="text" id="contact" name="contact" placeholder="Phone or email">
+            <div class="form-group" id="contact-group">
+                <label for="contact">
+                    Contact Information
+                    <span class="required" id="contact-required" style="display: none;">*</span>
+                    <span id="contact-optional">(Optional)</span>
+                </label>
+                <input type="text" id="contact" name="contact" placeholder="Phone or email for police follow-up">
+                <small id="contact-help" style="color: #666; font-size: 13px; margin-top: 5px; display: none;">
+                    Required for personal incidents so police can contact you for follow-up
+                </small>
             </div>
 
             <button type="submit" class="submit-btn" id="submit-btn">Submit Report</button>
@@ -264,13 +305,13 @@
 
     <script type="module">
         import { goToHomeDashboard } from './js/authUtils.js';
-        
+
         // Home navigation
         document.getElementById('home-link').addEventListener('click', (e) => {
             e.preventDefault();
             goToHomeDashboard();
         });
-        
+
         document.getElementById('home-btn').addEventListener('click', (e) => {
             e.preventDefault();
             goToHomeDashboard();
@@ -278,5 +319,5 @@
     </script>
     <script type="module" src="../js/report.js"></script>
 </body>
-</html>
 
+</html>

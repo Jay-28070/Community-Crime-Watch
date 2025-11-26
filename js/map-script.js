@@ -1,6 +1,7 @@
 // map-script.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+import { showPageLoader, hidePageLoader } from './loader.js';
 
 // Firebase config
 const firebaseConfig = {
@@ -76,13 +77,36 @@ if (homeLink) {
 // -----------------------------
 // LEAFLET MAP
 // -----------------------------
+
+// Show loader while map initializes
+showPageLoader('Loading Map...', 'Fetching crime data and initializing map');
+
 const map = L.map('map').setView([0, 0], 2); // default world view
 
 // Add OpenStreetMap tiles
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+const tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
+
+// Hide loader when tiles are loaded
+let tilesLoaded = false;
+tileLayer.on('load', () => {
+    if (!tilesLoaded) {
+        tilesLoaded = true;
+        // Small delay to ensure everything is rendered
+        setTimeout(() => {
+            hidePageLoader();
+        }, 500);
+    }
+});
+
+// Fallback: hide loader after 3 seconds if tiles don't load
+setTimeout(() => {
+    if (!tilesLoaded) {
+        hidePageLoader();
+    }
+}, 3000);
 
 // Sample crime hotspots
 const sampleCrimeData = [
@@ -94,10 +118,14 @@ const sampleCrimeData = [
 // Get user-reported crimes from localStorage
 let userReports = JSON.parse(localStorage.getItem("crimeReports") || "[]");
 
-// Filter out resolved cases
-userReports = userReports.filter(report => report.status !== 'resolved');
+// Filter out resolved cases AND personal incidents (privacy protection)
+userReports = userReports.filter(report =>
+    report.status !== 'resolved' &&
+    report.incidentType !== 'personal' && // Don't show personal incidents on public map
+    report.lat && report.lng // Only show reports with valid coordinates
+);
 
-// Combine sample data with user reports
+// Combine sample data with user reports (only general/community reports)
 const allCrimes = [...sampleCrimeData, ...userReports];
 
 // Crime severity levels
@@ -106,17 +134,17 @@ const crimeSeverity = {
     "Arson": "critical",
     "Robbery": "critical",
     "Assault": "critical",
-    
+
     // High - Orange
     "Burglary": "high",
     "Vehicle Theft": "high",
     "Drug Activity": "high",
-    
+
     // Medium - Yellow
     "Theft": "medium",
     "Harassment": "medium",
     "Fraud": "medium",
-    
+
     // Low - Green
     "Vandalism": "low",
     "Trespassing": "low",
@@ -136,7 +164,7 @@ const severityColors = {
 function getMarkerIcon(crimeType) {
     const severity = crimeSeverity[crimeType] || "low";
     const color = severityColors[severity];
-    
+
     return L.icon({
         iconUrl: `https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-${color}.png`,
         shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
@@ -153,14 +181,14 @@ allCrimes.forEach(crime => {
     const marker = L.marker([crime.lat, crime.lng], {
         icon: getMarkerIcon(crime.type)
     }).addTo(map);
-    
+
     // Format date if available
     let dateStr = "";
     if (crime.dateTime) {
         const date = new Date(crime.dateTime);
         dateStr = `<br><small>📅 ${date.toLocaleString()}</small>`;
     }
-    
+
     // Build popup content
     let popupContent = `
         <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
@@ -172,7 +200,7 @@ allCrimes.forEach(crime => {
             ${crime.witnesses ? `<br><small>👥 Witnesses: ${crime.witnesses}</small>` : ""}
         </div>
     `;
-    
+
     marker.bindPopup(popupContent);
     markers.push(marker);
 });
@@ -181,17 +209,17 @@ allCrimes.forEach(crime => {
 const selectedReport = sessionStorage.getItem('selectedReport');
 if (selectedReport) {
     const report = JSON.parse(selectedReport);
-    
+
     // Zoom to the selected report
     map.setView([report.lat, report.lng], 16);
-    
+
     // Find and open the popup for this report
     markers.forEach(marker => {
         const markerLatLng = marker.getLatLng();
-        if (Math.abs(markerLatLng.lat - report.lat) < 0.0001 && 
+        if (Math.abs(markerLatLng.lat - report.lat) < 0.0001 &&
             Math.abs(markerLatLng.lng - report.lng) < 0.0001) {
             marker.openPopup();
-            
+
             // Add a pulsing effect to highlight the marker
             const icon = marker.getElement();
             if (icon) {
@@ -199,7 +227,7 @@ if (selectedReport) {
             }
         }
     });
-    
+
     // Clear the session storage
     sessionStorage.removeItem('selectedReport');
 } else if (markers.length > 0) {
@@ -213,21 +241,21 @@ if (selectedReport) {
 
 // Add legend
 const legend = L.control({ position: 'bottomright' });
-legend.onAdd = function(map) {
+legend.onAdd = function (map) {
     const div = L.DomUtil.create('div', 'legend');
     div.style.backgroundColor = 'white';
     div.style.padding = '15px';
     div.style.borderRadius = '8px';
     div.style.boxShadow = '0 2px 5px rgba(0,0,0,0.3)';
     div.innerHTML = '<h4 style="margin: 0 0 10px 0; font-family: \'Segoe UI\', sans-serif;">Crime Severity</h4>';
-    
+
     const severityLabels = {
         'critical': 'Critical (Arson, Robbery, Assault)',
         'high': 'High (Burglary, Vehicle Theft, Drugs)',
         'medium': 'Medium (Theft, Harassment, Fraud)',
         'low': 'Low (Vandalism, Trespassing, Other)'
     };
-    
+
     Object.entries(severityLabels).forEach(([severity, label]) => {
         const color = severityColors[severity];
         div.innerHTML += `
@@ -238,7 +266,7 @@ legend.onAdd = function(map) {
             </div>
         `;
     });
-    
+
     return div;
 };
 legend.addTo(map);
@@ -260,28 +288,28 @@ document.getElementById('map-search').addEventListener('keypress', (e) => {
 
 async function searchLocation() {
     const query = document.getElementById('map-search').value.trim();
-    
+
     if (!query) {
         return;
     }
-    
+
     try {
         // Using Nominatim (OpenStreetMap) geocoding service
         const response = await fetch(
             `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5`
         );
-        
+
         if (!response.ok) {
             throw new Error('Search failed');
         }
-        
+
         const results = await response.json();
-        
+
         if (results.length === 0) {
             showSearchMessage('No results found. Try a different search term.');
             return;
         }
-        
+
         if (results.length === 1) {
             // If only one result, go directly to it
             goToLocation(results[0]);
@@ -289,7 +317,7 @@ async function searchLocation() {
             // Show multiple results
             displaySearchResults(results);
         }
-        
+
     } catch (error) {
         console.error('Search error:', error);
         showSearchMessage('Search failed. Please try again.');
@@ -298,14 +326,14 @@ async function searchLocation() {
 
 function displaySearchResults(results) {
     const resultsDiv = document.getElementById('search-results');
-    
+
     resultsDiv.innerHTML = results.map(result => `
         <div class="search-result-item" onclick="selectSearchResult(${result.lat}, ${result.lon}, '${result.display_name.replace(/'/g, "\\'")}')">
             <div style="font-weight: 600; margin-bottom: 3px;">${result.display_name.split(',')[0]}</div>
             <div style="font-size: 13px; color: #666;">${result.display_name}</div>
         </div>
     `).join('');
-    
+
     resultsDiv.style.display = 'block';
 }
 
@@ -320,12 +348,12 @@ window.selectSearchResult = selectSearchResult;
 function goToLocation(location) {
     const lat = parseFloat(location.lat);
     const lon = parseFloat(location.lon);
-    
+
     // Fly to location
     map.flyTo([lat, lon], 15, {
         duration: 1.5
     });
-    
+
     // Add temporary marker
     const marker = L.marker([lat, lon], {
         icon: L.icon({
@@ -337,14 +365,14 @@ function goToLocation(location) {
             shadowSize: [41, 41]
         })
     }).addTo(map);
-    
+
     marker.bindPopup(`<b>📍 ${location.display_name}</b>`).openPopup();
-    
+
     // Remove marker after 10 seconds
     setTimeout(() => {
         map.removeLayer(marker);
     }, 10000);
-    
+
     // Clear search input
     document.getElementById('map-search').value = '';
     document.getElementById('search-results').style.display = 'none';
@@ -358,7 +386,7 @@ function showSearchMessage(message) {
         </div>
     `;
     resultsDiv.style.display = 'block';
-    
+
     setTimeout(() => {
         resultsDiv.style.display = 'none';
     }, 3000);

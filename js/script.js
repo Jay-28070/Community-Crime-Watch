@@ -35,18 +35,32 @@ const provider = new GoogleAuthProvider();
 const db = getFirestore(app);
 
 // -----------------------------
+// LOADING ANIMATION HELPERS
+// -----------------------------
+function showLoader() {
+    const loader = document.getElementById('auth-loader');
+    if (loader) loader.classList.add('active');
+}
+
+function hideLoader() {
+    const loader = document.getElementById('auth-loader');
+    if (loader) loader.classList.remove('active');
+}
+
+// -----------------------------
 // GOOGLE LOGIN BUTTON (works on signup & login pages)
 // -----------------------------
 const googleBtn = document.getElementById("google-login");
 if (googleBtn) {
     googleBtn.addEventListener("click", async () => {
+        showLoader();
         try {
             const result = await signInWithPopup(auth, provider);
             const user = result.user;
-            
+
             // Check if user exists in Firestore
             const userDoc = await getDoc(doc(db, "users", user.uid));
-            
+
             if (!userDoc.exists()) {
                 // New Google user - default to regular user role
                 await setDoc(doc(db, "users", user.uid), {
@@ -66,6 +80,7 @@ if (googleBtn) {
                 }
             }
         } catch (error) {
+            hideLoader();
             alert(error.message);
         }
     });
@@ -80,7 +95,7 @@ if (signupForm) {
     const roleSelect = signupForm.querySelector('#role');
     const badgeGroup = document.getElementById('badge-group');
     const badgeInput = document.getElementById('badge-number');
-    
+
     if (roleSelect && badgeGroup) {
         roleSelect.addEventListener('change', () => {
             if (roleSelect.value === 'police') {
@@ -92,7 +107,7 @@ if (signupForm) {
             }
         });
     }
-    
+
     signupForm.addEventListener("submit", async (e) => {
         e.preventDefault();
         const email = signupForm.email.value;
@@ -106,10 +121,11 @@ if (signupForm) {
             return;
         }
 
+        showLoader();
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
-            
+
             // Store user role in Firestore
             await setDoc(doc(db, "users", user.uid), {
                 email: email,
@@ -117,7 +133,7 @@ if (signupForm) {
                 badgeNumber: badgeNumber,
                 createdAt: new Date().toISOString()
             });
-            
+
             // Redirect based on role
             if (role === 'police') {
                 window.location.href = "dashboardPolice.html";
@@ -125,6 +141,7 @@ if (signupForm) {
                 window.location.href = "dashboard.html";
             }
         } catch (err) {
+            hideLoader();
             alert(err.message);
         }
     });
@@ -139,7 +156,7 @@ if (loginForm) {
     const loginRoleSelect = loginForm.querySelector('#role');
     const loginBadgeGroup = document.getElementById('login-badge-group');
     const loginBadgeInput = document.getElementById('login-badge-number');
-    
+
     if (loginRoleSelect && loginBadgeGroup) {
         loginRoleSelect.addEventListener('change', () => {
             if (loginRoleSelect.value === 'police') {
@@ -160,47 +177,52 @@ if (loginForm) {
         const selectedRole = loginForm.role.value;
         const enteredBadgeNumber = loginForm.badgeNumber ? loginForm.badgeNumber.value.trim() : '';
 
+        showLoader();
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
-            
+
             // Get user role from Firestore
             const userDoc = await getDoc(doc(db, "users", user.uid));
-            
+
             if (userDoc.exists()) {
                 const userData = userDoc.data();
-                
+
                 // Verify role matches
                 if (userData.role !== selectedRole) {
+                    hideLoader();
                     alert(`This account is registered as a ${userData.role}. Please select the correct role.`);
                     await auth.signOut();
                     return;
                 }
-                
+
                 // For police, verify badge number
                 if (selectedRole === 'police') {
                     // Check if badge number was entered
                     if (!enteredBadgeNumber) {
+                        hideLoader();
                         alert('Please enter your badge number.');
                         await auth.signOut();
                         return;
                     }
-                    
+
                     // Check if badge number exists in Firestore
                     if (!userData.badgeNumber) {
+                        hideLoader();
                         alert('No badge number found for this account. Please contact support.');
                         await auth.signOut();
                         return;
                     }
-                    
+
                     // Verify badge number matches (convert both to strings and trim)
                     if (userData.badgeNumber.toString().trim() !== enteredBadgeNumber) {
+                        hideLoader();
                         alert('Invalid badge number. Please check and try again.');
                         await auth.signOut();
                         return;
                     }
                 }
-                
+
                 // Redirect based on role
                 if (userData.role === 'police') {
                     window.location.href = "dashboardPolice.html";
@@ -208,10 +230,12 @@ if (loginForm) {
                     window.location.href = "dashboard.html";
                 }
             } else {
+                hideLoader();
                 alert("User data not found. Please contact support.");
                 await auth.signOut();
             }
         } catch (err) {
+            hideLoader();
             alert(err.message);
         }
     });
@@ -246,7 +270,7 @@ function typeWriterEffect(element, text, speed = 100) {
     element.textContent = '';
     element.style.opacity = '1';
     let i = 0;
-    
+
     function type() {
         if (i < text.length) {
             element.textContent += text.charAt(i);
@@ -254,7 +278,7 @@ function typeWriterEffect(element, text, speed = 100) {
             setTimeout(type, speed);
         }
     }
-    
+
     type();
 }
 
