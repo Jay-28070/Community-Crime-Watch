@@ -77,3 +77,4 @@ export async function withLoader(asyncFunction, title = 'Loading...', subtitle =
         hidePageLoader();
     }
 }
+

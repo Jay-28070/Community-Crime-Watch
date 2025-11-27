@@ -36,7 +36,7 @@ onAuthStateChanged(auth, async (user) => {
 document.getElementById("logout-btn").addEventListener("click", async (e) => {
     e.preventDefault();
     await auth.signOut();
-    window.location.href = "index.html";
+    window.location.href = "../index.html";
 });
 
 // Home navigation
@@ -494,5 +494,6 @@ function getStatusText(status) {
     };
     return statusMap[status] || 'Pending Review';
 }
+
 
 

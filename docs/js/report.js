@@ -30,7 +30,7 @@ onAuthStateChanged(auth, user => {
 document.getElementById("logout-btn").addEventListener("click", async e => {
     e.preventDefault();
     await auth.signOut();
-    window.location.href = "index.html";
+    window.location.href = "../index.html";
 });
 
 // Home navigation
@@ -714,5 +714,6 @@ document.getElementById('use-ai-results-btn').addEventListener('click', () => {
     // Show success feedback
     showError('AI results applied! Please complete the remaining fields.', 'success');
 });
+
 
 

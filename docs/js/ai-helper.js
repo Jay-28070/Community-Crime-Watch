@@ -193,3 +193,4 @@ function extractInfoManually(text) {
         incidentType: isPersonal ? 'personal' : 'other'
     };
 }
+

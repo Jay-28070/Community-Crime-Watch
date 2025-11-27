@@ -253,7 +253,7 @@ if (logoutBtn) {
         try {
             await auth.signOut()
 
-            window.location.href = "index.html";
+            window.location.href = "../index.html";
         } catch (err) {
             alert("Error logging out: " + err.message);
         }
@@ -328,6 +328,7 @@ document.querySelectorAll(".feature-card").forEach(card => {
         });
     }
 });
+
 
 
 

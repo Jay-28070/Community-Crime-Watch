@@ -24,7 +24,7 @@ onAuthStateChanged(auth, user => {
 document.getElementById("logout-btn").addEventListener("click", async e => {
     e.preventDefault();
     await auth.signOut();
-    window.location.href = "index.html";
+    window.location.href = "../index.html";
 });
 
 // Home navigation
@@ -490,5 +490,6 @@ checkForNotifications();
 
 // Check for new notifications every 30 seconds
 setInterval(checkForNotifications, 30000);
+
 
 

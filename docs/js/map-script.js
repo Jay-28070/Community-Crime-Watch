@@ -38,7 +38,7 @@ if (logoutBtn) {
     logoutBtn.addEventListener("click", async e => {
         e.preventDefault();
         await auth.signOut();
-        window.location.href = "index.html";
+        window.location.href = "../index.html";
     });
 }
 
@@ -61,7 +61,7 @@ if (homeBtn) {
                     window.location.href = "dashboard.html";
                 }
             } else {
-                window.location.href = "index.html";
+                window.location.href = "../index.html";
             }
         });
     });
@@ -399,5 +399,6 @@ document.addEventListener('click', (e) => {
         document.getElementById('search-results').style.display = 'none';
     }
 });
+
 
 

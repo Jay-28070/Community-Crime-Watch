@@ -23,7 +23,7 @@ onAuthStateChanged(auth, user => {
 document.getElementById("logout-btn").addEventListener("click", async e => {
     e.preventDefault();
     await auth.signOut();
-    window.location.href = "index.html";
+    window.location.href = "../index.html";
 });
 
 // Get current location
@@ -101,5 +101,6 @@ function showError(message) {
 const now = new Date();
 now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
 document.getElementById("date-time").max = now.toISOString().slice(0, 16);
+
 
 

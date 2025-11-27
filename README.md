@@ -96,5 +96,3 @@ The application is fully responsive and works seamlessly on:
 - Mobile phones
 
 ---
-
-Built with ❤️ for safer communities
