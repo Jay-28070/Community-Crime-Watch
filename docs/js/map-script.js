@@ -1,6 +1,7 @@
 // map-script.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 import { showPageLoader, hidePageLoader } from './loader.js';
 
 // Firebase config
@@ -17,6 +18,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
 // Map is accessible to everyone (no login required)
 onAuthStateChanged(auth, user => {
@@ -110,11 +112,12 @@ setTimeout(() => {
 
 // Sample crime hotspots
 const sampleCrimeData = [
-    { lat: -26.2041, lng: 28.0473, type: "Theft", description: "Pickpocket incident", dateTime: "2024-11-20T14:30" },
-    { lat: -26.2050, lng: 28.0490, type: "Vandalism", description: "Broken window", dateTime: "2024-11-21T09:15" },
-    { lat: -26.2065, lng: 28.0465, type: "Assault", description: "Street fight", dateTime: "2024-11-22T18:45" }
+    { lat: -33.8228, lng: 18.4894, type: "Theft", description: "Pickpocket incident", dateTime: "2025-11-20T14:30" },
+    { lat: -33.87556, lng: 18.54083, type: "Vandalism", description: "Broken window", dateTime: "2025-11-21T09:15" },
+    { lat: -33.9335, lng: 18.4604, type: "Assault", description: "Street fight", dateTime: "2025-11-22T18:45" }
 ];
 
+/* OLD localStorage CODE (replaced with Firestore below):
 // Get user-reported crimes from localStorage
 let userReports = JSON.parse(localStorage.getItem("crimeReports") || "[]");
 
@@ -127,6 +130,84 @@ userReports = userReports.filter(report =>
 
 // Combine sample data with user reports (only general/community reports)
 const allCrimes = [...sampleCrimeData, ...userReports];
+*/
+
+// Get user-reported crimes from Firestore
+let userReports = [];
+
+async function loadReportsFromFirestore() {
+    try {
+        const reportsQuery = query(
+            collection(db, "crimeReports"),
+            where("status", "!=", "resolved") // Exclude resolved cases
+        );
+        const querySnapshot = await getDocs(reportsQuery);
+        
+        userReports = [];
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            // Filter out personal incidents (privacy protection) and reports without coordinates
+            if (data.incidentType !== 'personal' && data.lat && data.lng) {
+                userReports.push({
+                    id: doc.id,
+                    ...data
+                });
+            }
+        });
+        
+        // Combine sample data with user reports
+        const allCrimes = [...sampleCrimeData, ...userReports];
+        
+        // Add markers to map
+        addMarkersToMap(allCrimes);
+        
+    } catch (error) {
+        console.error("Error loading reports from Firestore:", error);
+        // Fallback to sample data only
+        const allCrimes = [...sampleCrimeData];
+        addMarkersToMap(allCrimes);
+    }
+}
+
+// Function to add markers (will be called after data is loaded)
+function addMarkersToMap(crimes) {
+    crimes.forEach(crime => {
+        const marker = L.marker([crime.lat, crime.lng], {
+            icon: getMarkerIcon(crime.type)
+        }).addTo(map);
+
+        // Format date if available
+        let dateStr = "";
+        if (crime.dateTime) {
+            const date = new Date(crime.dateTime);
+            dateStr = `<br><small>📅 ${date.toLocaleString()}</small>`;
+        }
+
+        // Build popup content
+        let popupContent = `
+            <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 280px;">
+                <h3 style="margin: 0 0 10px 0; color: rgb(57, 136, 255); font-size: 16px;">${crime.type}</h3>
+                <p style="margin: 5px 0; font-size: 13px;"><strong>Description:</strong> ${crime.description}</p>
+                ${dateStr}
+                ${crime.address ? `<br><small style="font-size: 12px;">📍 ${crime.address}</small>` : ""}
+                ${crime.reporterName ? `<br><small style="font-size: 12px;">👤 Reported by: ${crime.reporterName}</small>` : ""}
+                ${crime.witnesses ? `<br><small style="font-size: 12px;">👥 Witnesses: ${crime.witnesses}</small>` : ""}
+            </div>
+        `;
+
+        marker.bindPopup(popupContent, {
+            maxWidth: 300,
+            minWidth: 200
+        });
+        markers.push(marker);
+    });
+}
+
+// Load reports when page loads
+loadReportsFromFirestore();
+
+// Placeholder for allCrimes (will be populated by loadReportsFromFirestore)
+const allCrimes = [];
 
 // Crime severity levels
 const crimeSeverity = {
@@ -175,38 +256,8 @@ function getMarkerIcon(crimeType) {
     });
 }
 
-// Add markers for each crime
+// Markers array (will be populated by addMarkersToMap function)
 const markers = [];
-allCrimes.forEach(crime => {
-    const marker = L.marker([crime.lat, crime.lng], {
-        icon: getMarkerIcon(crime.type)
-    }).addTo(map);
-
-    // Format date if available
-    let dateStr = "";
-    if (crime.dateTime) {
-        const date = new Date(crime.dateTime);
-        dateStr = `<br><small>📅 ${date.toLocaleString()}</small>`;
-    }
-
-    // Build popup content
-    let popupContent = `
-        <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 280px;">
-            <h3 style="margin: 0 0 10px 0; color: rgb(57, 136, 255); font-size: 16px;">${crime.type}</h3>
-            <p style="margin: 5px 0; font-size: 13px;"><strong>Description:</strong> ${crime.description}</p>
-            ${dateStr}
-            ${crime.address ? `<br><small style="font-size: 12px;">📍 ${crime.address}</small>` : ""}
-            ${crime.reporterName ? `<br><small style="font-size: 12px;">👤 Reported by: ${crime.reporterName}</small>` : ""}
-            ${crime.witnesses ? `<br><small style="font-size: 12px;">👥 Witnesses: ${crime.witnesses}</small>` : ""}
-        </div>
-    `;
-
-    marker.bindPopup(popupContent, {
-        maxWidth: 300,
-        minWidth: 200
-    });
-    markers.push(marker);
-});
 
 // Check if there's a selected report from alerts page
 const selectedReport = sessionStorage.getItem('selectedReport');

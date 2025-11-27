@@ -1,5 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 import { showPageLoader, hidePageLoader } from './loader.js';
 import { analyzeWithHuggingFace } from './ai-helper.js';
 
@@ -15,6 +16,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
 // Global variables for AI
 let currentPhotoData = null;
@@ -291,7 +293,6 @@ document.getElementById("crime-report-form").addEventListener("submit", async e 
     // For personal incidents, store location but mark it as private
     // For general incidents, location is public
     const formData = {
-        id: Date.now(),
         type: crimeType,
         incidentType: incidentType,
         urgency: urgency,
@@ -306,10 +307,23 @@ document.getElementById("crime-report-form").addEventListener("submit", async e 
         witnesses: document.getElementById("witnesses").value,
         reporterName: document.getElementById("reporter-name").value || "Anonymous",
         contact: contact,
-        reportedAt: new Date().toISOString(),
+        userId: auth.currentUser.uid, // Track who submitted the report
+        reportedAt: serverTimestamp(), // Use Firestore server timestamp
         status: 'pending'
     };
 
+    // Save to Firestore
+    try {
+        await addDoc(collection(db, "crimeReports"), formData);
+        console.log("Report saved to Firestore successfully");
+    } catch (error) {
+        console.error("Error saving report to Firestore:", error);
+        hidePageLoader();
+        showError("Failed to submit report. Please try again.");
+        return;
+    }
+
+    /* OLD localStorage CODE (replaced with Firestore above):
     // Save to localStorage
     let reports = JSON.parse(localStorage.getItem("crimeReports") || "[]");
     reports.push(formData);
@@ -323,6 +337,7 @@ document.getElementById("crime-report-form").addEventListener("submit", async e 
     });
 
     localStorage.setItem("crimeReports", JSON.stringify(reports));
+    */
 
     hidePageLoader();
 
