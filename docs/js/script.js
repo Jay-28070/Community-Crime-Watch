@@ -110,6 +110,7 @@ if (signupForm) {
 
     signupForm.addEventListener("submit", async (e) => {
         e.preventDefault();
+        const fullName = signupForm['full-name'].value;
         const email = signupForm.email.value;
         const password = signupForm.password.value;
         const confirmPassword = signupForm['confirm-password'].value;
@@ -126,8 +127,9 @@ if (signupForm) {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
 
-            // Store user role in Firestore
+            // Store user data in Firestore
             await setDoc(doc(db, "users", user.uid), {
+                fullName: fullName,
                 email: email,
                 role: role,
                 badgeNumber: badgeNumber,
@@ -282,11 +284,18 @@ function typeWriterEffect(element, text, speed = 100) {
     type();
 }
 
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async (user) => {
     if (user) {
         // If on dashboard page, show their name with typing effect
         if (userNameSpan) {
-            const userName = user.displayName || user.email;
+            // Try to get full name from Firestore first
+            const userDoc = await getDoc(doc(db, "users", user.uid));
+            let userName = user.displayName || user.email.split('@')[0];
+            
+            if (userDoc.exists() && userDoc.data().fullName) {
+                userName = userDoc.data().fullName;
+            }
+            
             typeWriterEffect(userNameSpan, userName, 80);
         }
     } else {

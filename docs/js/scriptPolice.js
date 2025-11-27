@@ -50,7 +50,13 @@ onAuthStateChanged(auth, async (user) => {
             
             // Show officer name
             if (userNameSpan) {
-                const userName = user.displayName || user.email.split('@')[0];
+                let userName = user.displayName || user.email.split('@')[0];
+                
+                // Try to get full name from Firestore
+                if (userData.fullName) {
+                    userName = userData.fullName;
+                }
+                
                 typeWriterEffect(userNameSpan, userName, 80);
             }
         } else {
