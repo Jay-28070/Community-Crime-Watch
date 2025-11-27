@@ -7,10 +7,10 @@
     <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
     <script type="module" src="../js/script.js" defer></script>
     <link rel="stylesheet" href="../assets/css/styles.css">
-    <title>Community Crime Watch</title>
+    <title>Login - Community Crime Watch</title>
 </head>
 
-<body>
+<body class="auth-page">
     <!-- Loading Overlay -->
     <div class="auth-loader-overlay" id="auth-loader">
         <div class="loader-content">
@@ -23,69 +23,118 @@
         </div>
     </div>
 
-    <nav>
+    <!-- Navigation -->
+    <nav class="auth-nav">
         <div class="main-logo">
-            <img src="../assets/icons/logo.svg" alt="Logo">
-            <a href="../index.html">Community Crime Watch</a>
+            <img src="../assets/icons/logo.svg" alt="Logo" class="logo-pulse">
+            <a href="../index.html" class="logo-text">Community Crime Watch</a>
         </div>
         <div class="links">
-            <a class="login-btn" href="login.html">Log in</a>
-            <a class="signup-button" href="signup.html">Sign up</a>
+            <a class="auth-link" href="signup.html">Don't have an account? <span>Sign up</span></a>
         </div>
     </nav>
 
-    <!-- Login Form -->
-    <div class="login-form">
-        <div class="login-form-contents">
-            <img class="logo" src="../assets/icons/shield-check.svg" alt="Logo">
-            <h1>Login</h1>
-            <h2>Join the community to report and track crime</h2>
+    <!-- Auth Container -->
+    <div class="auth-container">
+        <!-- Background Elements -->
+        <div class="auth-background">
+            <div class="auth-circle auth-circle-1"></div>
+            <div class="auth-circle auth-circle-2"></div>
+        </div>
 
-            <div class="form">
-                <form id="login-form">
-                    <!-- Role Selection -->
-                    <div class="form-group">
-                        <label for="role">I am a</label>
-                        <select id="role" name="role" required>
-                            <option value="user">Community Member</option>
-                            <option value="police">Police Officer</option>
-                        </select>
+        <!-- Auth Content -->
+        <div class="auth-content">
+            <!-- Left Side - Branding -->
+            <div class="auth-branding">
+                <div class="branding-icon">
+                    <img src="../assets/icons/logo.svg" alt="Logo">
+                </div>
+                <h2>Welcome Back!</h2>
+                <p>Log in to access your community safety dashboard and stay connected with your neighborhood.</p>
+                <div class="branding-features">
+                    <div class="branding-feature">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        <span>Real-time crime alerts</span>
+                    </div>
+                    <div class="branding-feature">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        <span>AI-powered reporting</span>
+                    </div>
+                    <div class="branding-feature">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        <span>Interactive crime maps</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side - Form -->
+            <div class="auth-form-wrapper">
+                <div class="auth-form-card">
+                    <div class="form-header">
+                        <h1>Log In</h1>
+                        <p>Enter your credentials to continue</p>
                     </div>
 
-                    <!-- Police Badge Number (shown only for police) -->
-                    <div class="form-group" id="login-badge-group" style="display: none;">
-                        <label for="login-badge-number">Badge Number</label>
-                        <input type="text" id="login-badge-number" name="badgeNumber"
-                            placeholder="Enter your badge number">
+                    <form id="login-form" class="auth-form">
+                        <!-- Role Selection -->
+                        <div class="form-group-modern">
+                            <label for="role">I am a</label>
+                            <select id="role" name="role" required>
+                                <option value="user">Community Member</option>
+                                <option value="police">Police Officer</option>
+                            </select>
+                        </div>
+
+                        <!-- Police Badge Number -->
+                        <div class="form-group-modern" id="login-badge-group" style="display: none;">
+                            <label for="login-badge-number">Badge Number</label>
+                            <input type="text" id="login-badge-number" name="badgeNumber" placeholder="Enter your badge number">
+                        </div>
+
+                        <!-- Email -->
+                        <div class="form-group-modern">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="form-group-modern">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn-modern btn-primary">
+                            <span>Log In</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                                <polyline points="12 5 19 12 12 19"/>
+                            </svg>
+                        </button>
+
+                        <!-- Divider -->
+                        <div class="auth-divider">
+                            <span>or continue with</span>
+                        </div>
+
+                        <!-- Google Button -->
+                        <button type="button" class="btn-modern btn-google" id="google-login">
+                            <img src="../assets/icons/icons8-google.svg" alt="Google">
+                            <span>Google</span>
+                        </button>
+                    </form>
+
+                    <!-- Footer Link -->
+                    <div class="form-footer">
+                        <p>Don't have an account? <a href="signup.html">Sign up</a></p>
                     </div>
-
-                    <!-- Email -->
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
-                    </div>
-
-                    <!-- Password -->
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" name="password" placeholder="Enter your password" required>
-                    </div>
-
-                    <!-- Submit button -->
-                    <button type="submit" class="btn">Login</button>
-
-                    <!-- Divider -->
-                    <div class="divider">OR</div>
-
-                    <!-- Google Button -->
-                    <button type="button" class="google-btn" id="google-login">
-                        <img src="../assets/icons/icons8-google.svg" alt="Google icon">
-                        Log in with Google
-                    </button>
-
-                    <!-- Signup link -->
-                    <p>Don't have an account? <a href="signup.html">Sign up</a></p>
-                </form>
+                </div>
             </div>
         </div>
     </div>

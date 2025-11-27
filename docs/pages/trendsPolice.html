@@ -6,23 +6,23 @@
     <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
     <link rel="stylesheet" href="../assets/css/styles.css">
     <link rel="stylesheet" href="../assets/css/enhanced-pages.css">
-    <title>Crime Trends - Community Crime Watch</title>
+    <title>Crime Trends - Police Dashboard</title>
 </head>
 <body>
-    <nav class="dashboard-nav">
-        <div class="main-logo">
-            <img src="../assets/icons/logo.svg" alt="Logo" class="logo-pulse">
-            <a href="#" id="home-link" class="logo-text">Community Crime Watch</a>
+    <nav class="dashboard-nav police-nav">
+        <div class="main-logo police-logo">
+            <img src="../assets/icons/logo-police.svg" alt="Logo" class="logo-pulse">
+            <a href="dashboardPolice.html" class="logo-text police-logo-text">Community Crime Watch</a>
         </div>
         <div class="links">
-            <a href="#" id="home-btn" class="nav-link-modern">
+            <a href="dashboardPolice.html" class="nav-link-modern police-nav-link">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
                     <polyline points="9 22 9 12 15 12 15 22"/>
                 </svg>
                 <span>Home</span>
             </a>
-            <a class="logout-btn-modern" id="logout-btn" href="#">
+            <a class="logout-btn-modern police-logout-btn" id="logout-btn" href="#">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
                     <polyline points="16 17 21 12 16 7"/>
@@ -33,7 +33,7 @@
         </div>
     </nav>
 
-    <div class="page-hero-modern">
+    <div class="page-hero-modern police-hero">
         <div class="hero-background">
             <div class="hero-circle hero-circle-1"></div>
             <div class="hero-circle hero-circle-2"></div>
@@ -45,7 +45,7 @@
                 </div>
             </div>
             <h1 class="page-title">Crime Trends & Analysis</h1>
-            <p class="page-subtitle">Analyze crime patterns and identify high-risk areas in your community</p>
+            <p class="page-subtitle">Analyze crime patterns and identify high-risk areas in your jurisdiction</p>
         </div>
     </div>
 
@@ -58,8 +58,8 @@
                     <circle cx="11" cy="11" r="8"/>
                     <path d="m21 21-4.35-4.35"/>
                 </svg>
-                <input type="text" id="area-search" class="area-search-input" placeholder="Enter location (e.g., Johannesburg, Main Street)">
-                <button type="button" id="analyze-area-btn" class="analyze-area-btn">Analyze</button>
+                <input type="text" id="area-search" class="area-search-input police-input" placeholder="Enter location (e.g., Johannesburg, Main Street)">
+                <button type="button" id="analyze-area-btn" class="analyze-area-btn police-btn">Analyze</button>
             </div>
             
             <div id="risk-result" class="risk-result" style="display: none;">
@@ -68,8 +68,8 @@
                     <div id="risk-badge" class="risk-badge"></div>
                 </div>
                 <div class="risk-details">
-                    <div class="risk-stat">
-                        <div class="stat-icon">
+                    <div class="risk-stat police-risk-stat">
+                        <div class="stat-icon police-stat-icon">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
                                 <line x1="12" y1="9" x2="12" y2="13"/>
@@ -81,8 +81,8 @@
                             <div class="stat-value" id="total-incidents">0</div>
                         </div>
                     </div>
-                    <div class="risk-stat">
-                        <div class="stat-icon">
+                    <div class="risk-stat police-risk-stat">
+                        <div class="stat-icon police-stat-icon">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
                                 <circle cx="12" cy="10" r="3"/>
@@ -93,8 +93,8 @@
                             <div class="stat-value" id="risk-percentage">0%</div>
                         </div>
                     </div>
-                    <div class="risk-stat">
-                        <div class="stat-icon">
+                    <div class="risk-stat police-risk-stat">
+                        <div class="stat-icon police-stat-icon">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
                             </svg>
@@ -181,7 +181,7 @@
         <div class="trends-section">
             <h2>Crime Patterns by Time</h2>
             <div class="time-analysis">
-                <div class="time-period active" data-period="day">
+                <div class="time-period police-time-period active" data-period="day">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="5"/>
                         <line x1="12" y1="1" x2="12" y2="3"/>
@@ -195,7 +195,7 @@
                     </svg>
                     By Hour
                 </div>
-                <div class="time-period" data-period="week">
+                <div class="time-period police-time-period" data-period="week">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
                         <line x1="16" y1="2" x2="16" y2="6"/>
@@ -204,7 +204,7 @@
                     </svg>
                     By Day
                 </div>
-                <div class="time-period" data-period="month">
+                <div class="time-period police-time-period" data-period="month">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
                         <polyline points="17 6 23 6 23 12"/>
@@ -216,7 +216,7 @@
         </div>
 
         <!-- Safety Tips -->
-        <div class="safety-tips-section">
+        <div class="safety-tips-section police-tips-section">
             <h2>Safety Recommendations</h2>
             <div class="tips-grid" id="safety-tips">
                 <!-- Tips will be dynamically loaded -->
@@ -241,4 +241,3 @@
     <script type="module" src="../js/trends.js"></script>
 </body>
 </html>
-

@@ -6,53 +6,134 @@
     <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
     <script type="module" src="../js/scriptPolice.js" defer></script>
     <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/enhanced-pages.css">
     <title>Police Dashboard - Community Crime Watch</title>
 </head>
 <body id="police-dashboard">
-    <nav>
-        <div class="main-logo">
-            <img src="../assets/icons/logo.svg" alt="Logo">
-            <a href="dashboardPolice.html">Community Crime Watch - Police</a>
+    <nav class="dashboard-nav police-nav">
+        <div class="main-logo police-logo">
+            <img src="../assets/icons/logo-police.svg" alt="Logo" class="logo-pulse">
+            <a href="dashboardPolice.html" class="logo-text police-logo-text">Community Crime Watch</a>
         </div>
         <div class="links">
-            <a class="login-btn" id="logout-btn" href="#">Log out</a>
+            <a class="logout-btn-modern police-logout-btn" id="logout-btn" href="#">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                    <polyline points="16 17 21 12 16 7"/>
+                    <line x1="21" y1="12" x2="9" y2="12"/>
+                </svg>
+                <span>Log out</span>
+            </a>
         </div>
     </nav>
 
-    <!-- Hero section -->
-    <div class="dashboard-hero police-dashboard-hero">
-        <h1>Welcome, Officer <span id="user-name"></span></h1>
-        <p>Manage crime reports and analyze trends in your jurisdiction</p>
+    <!-- Hero Section -->
+    <div class="dashboard-hero-modern police-hero">
+        <div class="hero-background">
+            <div class="hero-circle hero-circle-1"></div>
+            <div class="hero-circle hero-circle-2"></div>
+        </div>
+        <div class="dashboard-hero-content">
+            <div class="welcome-badge police-badge">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    <path d="M9 12l2 2 4-4"/>
+                </svg>
+                <span>Law Enforcement Portal</span>
+            </div>
+            <h1 class="dashboard-title">
+                Welcome, Officer <span id="user-name" class="gradient-text"></span>
+            </h1>
+            <p class="dashboard-subtitle">Manage crime reports and analyze trends in your jurisdiction</p>
+        </div>
     </div>
 
-    <!-- Feature cards -->
-    <div class="dashboard-features">
-        <div class="feature-card">
-            <img src="../assets/icons/bell-ringing.svg" alt="Manage Alerts">
-            <h2>Manage Alerts</h2>
-            <p>View, confirm, and resolve crime reports with priority levels and detailed information.</p>
-            <button class="feature-btn" onclick="window.location.href='alertsPolice.html'">Manage</button>
+    <!-- Decorative Divider -->
+    <div class="dashboard-divider police-divider">
+        <div class="divider-line police-divider-line"></div>
+        <div class="divider-icon police-divider-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+        </div>
+        <div class="divider-line police-divider-line"></div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="dashboard-features-modern">
+        <div class="section-header-dashboard">
+            <h2>Quick Actions</h2>
+            <p>Access all law enforcement tools and features</p>
         </div>
 
-        <div class="feature-card">
-            <img src="../assets/icons/trend-up.svg" alt="Crime Trends">
-            <h2>Crime Trends</h2>
-            <p>Analyze patterns, identify hotspots, and track crime statistics over time.</p>
-            <button class="feature-btn" onclick="window.location.href='trends.html'">Analyze</button>
-        </div>
+        <div class="features-grid-dashboard">
+            <div class="feature-card-dashboard police-feature-card" onclick="window.location.href='alertsPolice.html'">
+                <div class="feature-card-header">
+                    <div class="feature-icon-wrapper red">
+                        <img src="../assets/icons/bell-ringing.svg" alt="Manage Alerts" class="feature-icon">
+                    </div>
+                </div>
+                <h3>Manage Alerts</h3>
+                <p>View, confirm, and resolve crime reports with priority levels and detailed information.</p>
+                <div class="feature-action police-feature-action">
+                    <span>Manage</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                        <polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                </div>
+            </div>
 
-        <div class="feature-card">
-            <img src="../assets/icons/map-trifold.svg" alt="Crime Map">
-            <h2>Interactive Map</h2>
-            <p>View all reported crimes with real-time updates and location tracking.</p>
-            <button class="feature-btn" onclick="window.location.href='map.html'">View Map</button>
-        </div>
+            <div class="feature-card-dashboard police-feature-card" onclick="window.location.href='trendsPolice.html'">
+                <div class="feature-card-header">
+                    <div class="feature-icon-wrapper orange">
+                        <img src="../assets/icons/trend-up.svg" alt="Crime Trends" class="feature-icon">
+                    </div>
+                </div>
+                <h3>Crime Trends</h3>
+                <p>Analyze patterns, identify hotspots, and track crime statistics over time.</p>
+                <div class="feature-action police-feature-action">
+                    <span>Analyze</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                        <polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                </div>
+            </div>
 
-        <div class="feature-card">
-            <img src="../assets/icons/camera.svg" alt="Report Crime">
-            <h2>File Report</h2>
-            <p>Submit official police reports with AI-powered categorization.</p>
-            <button class="feature-btn" onclick="window.location.href='report.html'">Report</button>
+            <div class="feature-card-dashboard police-feature-card" onclick="window.location.href='mapPolice.html'">
+                <div class="feature-card-header">
+                    <div class="feature-icon-wrapper purple">
+                        <img src="../assets/icons/map-trifold.svg" alt="Crime Map" class="feature-icon">
+                    </div>
+                </div>
+                <h3>Interactive Map</h3>
+                <p>View all reported crimes with real-time updates and location tracking.</p>
+                <div class="feature-action police-feature-action">
+                    <span>View Map</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                        <polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="feature-card-dashboard police-feature-card" onclick="window.location.href='reportPolice.html'">
+                <div class="feature-card-header">
+                    <div class="feature-icon-wrapper blue">
+                        <img src="../assets/icons/camera.svg" alt="Report Crime" class="feature-icon">
+                    </div>
+                </div>
+                <h3>File Report</h3>
+                <p>Submit official police reports with AI-powered categorization.</p>
+                <div class="feature-action police-feature-action">
+                    <span>Report</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                        <polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                </div>
+            </div>
         </div>
     </div>
 </body>

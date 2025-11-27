@@ -122,6 +122,125 @@ document.getElementById("get-location-btn").addEventListener("click", () => {
     }
 });
 
+// Location autocomplete with user's current position
+let userLat = null;
+let userLng = null;
+let searchTimeout = null;
+
+// Get user's location for better search results
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+        position => {
+            userLat = position.coords.latitude;
+            userLng = position.coords.longitude;
+        },
+        error => {
+            console.log("Could not get user location for autocomplete");
+        }
+    );
+}
+
+// Address input autocomplete
+const addressInput = document.getElementById("address");
+const addressResults = document.createElement('div');
+addressResults.className = 'location-autocomplete-results';
+addressResults.style.display = 'none';
+addressInput.parentNode.style.position = 'relative';
+addressInput.parentNode.appendChild(addressResults);
+
+addressInput.addEventListener('input', (e) => {
+    const query = e.target.value.trim();
+    
+    // Clear previous timeout
+    if (searchTimeout) {
+        clearTimeout(searchTimeout);
+    }
+    
+    if (query.length < 3) {
+        addressResults.style.display = 'none';
+        return;
+    }
+    
+    // Debounce search
+    searchTimeout = setTimeout(async () => {
+        try {
+            // Build search URL with user location for better results
+            let searchUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5&addressdetails=1`;
+            
+            if (userLat && userLng) {
+                // Prioritize results near user's location
+                searchUrl += `&viewbox=${userLng-0.5},${userLat-0.5},${userLng+0.5},${userLat+0.5}&bounded=1`;
+            }
+            
+            const response = await fetch(searchUrl);
+            const results = await response.json();
+            
+            if (results.length > 0) {
+                displayLocationResults(results);
+            } else {
+                addressResults.style.display = 'none';
+            }
+        } catch (error) {
+            console.error('Location search error:', error);
+            addressResults.style.display = 'none';
+        }
+    }, 300); // Wait 300ms after user stops typing
+});
+
+function displayLocationResults(results) {
+    addressResults.innerHTML = results.map(result => {
+        // Calculate distance if user location is available
+        let distanceText = '';
+        if (userLat && userLng) {
+            const distance = calculateDistance(userLat, userLng, parseFloat(result.lat), parseFloat(result.lon));
+            distanceText = `<span class="location-distance">${distance.toFixed(1)} km away</span>`;
+        }
+        
+        return `
+            <div class="location-result-item" data-lat="${result.lat}" data-lon="${result.lon}" data-address="${result.display_name}">
+                <div class="location-name">${result.display_name.split(',')[0]}</div>
+                <div class="location-details">${result.display_name}${distanceText}</div>
+            </div>
+        `;
+    }).join('');
+    
+    addressResults.style.display = 'block';
+    
+    // Add click handlers
+    addressResults.querySelectorAll('.location-result-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const lat = item.getAttribute('data-lat');
+            const lon = item.getAttribute('data-lon');
+            const address = item.getAttribute('data-address');
+            
+            addressInput.value = address;
+            document.getElementById('latitude').value = lat;
+            document.getElementById('longitude').value = lon;
+            
+            addressResults.style.display = 'none';
+        });
+    });
+}
+
+// Calculate distance between two coordinates (Haversine formula)
+function calculateDistance(lat1, lon1, lat2, lon2) {
+    const R = 6371; // Earth's radius in km
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+              Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+              Math.sin(dLon/2) * Math.sin(dLon/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    return R * c;
+}
+
+// Close results when clicking outside
+document.addEventListener('click', (e) => {
+    if (!addressInput.contains(e.target) && !addressResults.contains(e.target)) {
+        addressResults.style.display = 'none';
+    }
+});
+
 // Form submission
 document.getElementById("crime-report-form").addEventListener("submit", async e => {
     e.preventDefault();

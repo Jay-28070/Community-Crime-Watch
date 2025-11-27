@@ -191,17 +191,20 @@ allCrimes.forEach(crime => {
 
     // Build popup content
     let popupContent = `
-        <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-            <h3 style="margin: 0 0 10px 0; color: rgb(57, 136, 255);">${crime.type}</h3>
-            <p style="margin: 5px 0;"><strong>Description:</strong> ${crime.description}</p>
+        <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 280px;">
+            <h3 style="margin: 0 0 10px 0; color: rgb(57, 136, 255); font-size: 16px;">${crime.type}</h3>
+            <p style="margin: 5px 0; font-size: 13px;"><strong>Description:</strong> ${crime.description}</p>
             ${dateStr}
-            ${crime.address ? `<br><small>📍 ${crime.address}</small>` : ""}
-            ${crime.reporterName ? `<br><small>👤 Reported by: ${crime.reporterName}</small>` : ""}
-            ${crime.witnesses ? `<br><small>👥 Witnesses: ${crime.witnesses}</small>` : ""}
+            ${crime.address ? `<br><small style="font-size: 12px;">📍 ${crime.address}</small>` : ""}
+            ${crime.reporterName ? `<br><small style="font-size: 12px;">👤 Reported by: ${crime.reporterName}</small>` : ""}
+            ${crime.witnesses ? `<br><small style="font-size: 12px;">👥 Witnesses: ${crime.witnesses}</small>` : ""}
         </div>
     `;
 
-    marker.bindPopup(popupContent);
+    marker.bindPopup(popupContent, {
+        maxWidth: 300,
+        minWidth: 200
+    });
     markers.push(marker);
 });
 
@@ -245,24 +248,32 @@ legend.onAdd = function (map) {
     const div = L.DomUtil.create('div', 'legend');
     div.style.backgroundColor = 'white';
     div.style.padding = '15px';
-    div.style.borderRadius = '8px';
-    div.style.boxShadow = '0 2px 5px rgba(0,0,0,0.3)';
-    div.innerHTML = '<h4 style="margin: 0 0 10px 0; font-family: \'Segoe UI\', sans-serif;">Crime Severity</h4>';
+    div.style.borderRadius = '12px';
+    div.style.boxShadow = '0 4px 15px rgba(0,0,0,0.2)';
+    div.innerHTML = '<h4 style="margin: 0 0 10px 0; font-family: \'Segoe UI\', sans-serif; font-size: 15px;">Crime Severity</h4>';
 
     const severityLabels = {
-        'critical': 'Critical (Arson, Robbery, Assault)',
-        'high': 'High (Burglary, Vehicle Theft, Drugs)',
-        'medium': 'Medium (Theft, Harassment, Fraud)',
-        'low': 'Low (Vandalism, Trespassing, Other)'
+        'critical': 'Critical',
+        'high': 'High',
+        'medium': 'Medium',
+        'low': 'Low'
+    };
+    
+    const severityDetails = {
+        'critical': 'Arson, Robbery, Assault',
+        'high': 'Burglary, Vehicle Theft',
+        'medium': 'Theft, Harassment',
+        'low': 'Vandalism, Other'
     };
 
     Object.entries(severityLabels).forEach(([severity, label]) => {
         const color = severityColors[severity];
+        const details = severityDetails[severity];
         div.innerHTML += `
-            <div style="margin: 8px 0; font-size: 13px; font-family: 'Segoe UI', sans-serif;">
-                <span style="display: inline-block; width: 14px; height: 14px; background-color: ${color}; border-radius: 50%; margin-right: 8px; border: 2px solid #333;"></span>
-                <strong>${severity.charAt(0).toUpperCase() + severity.slice(1)}</strong>
-                <div style="margin-left: 26px; font-size: 11px; color: #666;">${label}</div>
+            <div style="margin: 8px 0; font-size: 13px; font-family: 'Segoe UI', sans-serif; line-height: 1.4;">
+                <span style="display: inline-block; width: 14px; height: 14px; background-color: ${color}; border-radius: 50%; margin-right: 8px; border: 2px solid #333; vertical-align: middle;"></span>
+                <strong style="vertical-align: middle;">${label}</strong>
+                <div style="margin-left: 26px; font-size: 11px; color: #666; margin-top: 2px;">${details}</div>
             </div>
         `;
     });
@@ -366,7 +377,10 @@ function goToLocation(location) {
         })
     }).addTo(map);
 
-    marker.bindPopup(`<b>📍 ${location.display_name}</b>`).openPopup();
+    marker.bindPopup(`<b style="font-size: 14px;">📍 ${location.display_name}</b>`, {
+        maxWidth: 300,
+        minWidth: 200
+    }).openPopup();
 
     // Remove marker after 10 seconds
     setTimeout(() => {

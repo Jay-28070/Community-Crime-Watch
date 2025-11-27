@@ -7,15 +7,15 @@
     <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
     <script type="module" src="js/script.js" defer></script>
     <link rel="stylesheet" href="assets/css/styles.css">
-    <title>Community Crime Watch</title>
+    <title>Community Crime Watch - Stay Safe Together</title>
 </head>
 
 <body>
     <!--Navbar-->
-    <nav>
+    <nav class="landing-nav">
         <div class="main-logo">
-            <img src="assets/icons/logo.svg" alt="Logo">
-            Community Crime Watch
+            <img src="assets/icons/logo.svg" alt="Logo" class="logo-pulse">
+            <span class="logo-text">Community Crime Watch</span>
         </div>
         <div class="links">
             <a class="login-btn" href="pages/login.html">Log in</a>
@@ -23,75 +23,255 @@
         </div>
     </nav>
 
-    <!--logo card-->
-    <div class="logo-card">
-        <div class="logo-content">
-            <h1>Community Crime Watch</h1>
-            <p>Empowering communities to stay safe through AI-powered crime tracking and prevention</p>
+    <!--Hero Section-->
+    <div class="hero-section">
+        <div class="hero-background">
+            <div class="hero-circle hero-circle-1"></div>
+            <div class="hero-circle hero-circle-2"></div>
+            <div class="hero-circle hero-circle-3"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+                <span>AI-Powered Safety Platform</span>
+            </div>
+            <h1 class="hero-title">
+                Keep Your Community
+                <span class="gradient-text">Safe & Connected</span>
+            </h1>
+            <p class="hero-description">
+                Join thousands of community members using AI-powered crime tracking, 
+                real-time alerts, and interactive maps to create safer neighborhoods.
+            </p>
             <div class="hero-buttons">
-                <button class="get-started-btn" onclick="window.location.href='pages/signup.html'">Get Started</button>
-                <button class="crime-map-btn" onclick="window.location.href='pages/map.html'">View Crime Map</button>
+                <button class="cta-primary" onclick="window.location.href='pages/signup.html'">
+                    <span>Get Started Free</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                        <polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                </button>
+                <button class="cta-secondary" onclick="window.location.href='pages/map.html'">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="3 11 22 2 13 21 11 13 3 11"/>
+                    </svg>
+                    <span>Explore Crime Map</span>
+                </button>
             </div>
-        </div>
-    </div>
-
-    <!--Information card-->
-    <div class="info-card">
-        <div class="info-content">
-            <h1>How it works</h1>
-
-            <p>Stay informed and protected with our comprehensive safety platform</p>
-
-            <!--Box cards with how the app works-->
-
-            <div class="box-card">
-                <div class="box-card-content">
-                    <img src="assets/icons/camera.svg" alt="Icon of camera" class="card-icon">
-
-                    <h2>Easy crime reporting</h2>
-
-                    <p>Submit reports via text or photo. AI automatically categorizes incidents.</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">10K+</div>
+                    <div class="stat-label">Active Users</div>
                 </div>
-
-                <div class="box-card-content">
-                    <img src="assets/icons/map-trifold.svg" alt="Icon of map" class="card-icon">
-
-                    <h2>Interactive crime map</h2>
-
-                    <p>View reported incidents and hotspot areas with color-coded risk levels.</p>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <div class="stat-number">50K+</div>
+                    <div class="stat-label">Reports Filed</div>
                 </div>
-
-                <div class="box-card-content">
-                    <img src="assets/icons/trend-up.svg" alt="Icon of trend analysis" class="card-icon">
-
-                    <h2>Crime trend analysis</h2>
-
-                    <p>Track patterns and identify high-risk areas and times.</p>
-                </div>
-
-                <div class="box-card-content">
-                    <img src="assets/icons/bell-ringing.svg" alt="Icon of bell" class="card-icon">
-
-                    <h2>Safety alert</h2>
-
-                    <p>Get notified when crimes occur nearby with preventive advice.</p>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Response Rate</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!--ad card - Tells users that many people use the app and that it's free-->
-    <div class="ad-card">
-        <div class="ad-card-content">
-            <img src="assets/icons/warning.svg" alt="Warning icon" class="ad-icon">
+    <!--Features Section-->
+    <div class="features-section">
+        <div class="section-header">
+            <span class="section-badge">Features</span>
+            <h2 class="section-title">Everything You Need to Stay Safe</h2>
+            <p class="section-description">Powerful tools designed to protect and inform your community</p>
+        </div>
 
-            <h2>Make your community <b>Safer</b> Today</h2>
-            <p>Join thousands of community members working together to prevent crime and keep neighborhoods safe.</p>
+        <div class="features-grid">
+            <div class="feature-card-modern" onclick="showFeatureDetails('reporting')">
+                <div class="feature-icon-wrapper blue">
+                    <img src="assets/icons/camera.svg" alt="Report Crime" class="feature-icon">
+                </div>
+                <h3>Smart Crime Reporting</h3>
+                <p>Submit reports via text, photo, or voice. Our AI automatically categorizes and prioritizes incidents in real-time.</p>
+                <div class="feature-link">
+                    <span>Learn more</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                        <polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                </div>
+            </div>
 
-            <button class="btn-ad" onclick="window.location.href='pages/signup.html'">Join now - It's free</button>
+            <div class="feature-card-modern" onclick="showFeatureDetails('map')">
+                <div class="feature-icon-wrapper purple">
+                    <img src="assets/icons/map-trifold.svg" alt="Crime Map" class="feature-icon">
+                </div>
+                <h3>Interactive Crime Map</h3>
+                <p>Visualize crime hotspots with color-coded risk levels. Track incidents in real-time and identify dangerous areas.</p>
+                <div class="feature-link">
+                    <span>Learn more</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                        <polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="feature-card-modern" onclick="showFeatureDetails('trends')">
+                <div class="feature-icon-wrapper orange">
+                    <img src="assets/icons/trend-up.svg" alt="Analytics" class="feature-icon">
+                </div>
+                <h3>Crime Trend Analysis</h3>
+                <p>Discover patterns and predict high-risk times. Make data-driven decisions to enhance community safety.</p>
+                <div class="feature-link">
+                    <span>Learn more</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                        <polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="feature-card-modern" onclick="showFeatureDetails('alerts')">
+                <div class="feature-icon-wrapper red">
+                    <img src="assets/icons/bell-ringing.svg" alt="Alerts" class="feature-icon">
+                </div>
+                <h3>Real-Time Safety Alerts</h3>
+                <p>Get instant notifications when incidents occur nearby. Receive preventive advice and safety recommendations.</p>
+                <div class="feature-link">
+                    <span>Learn more</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                        <polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="feature-card-modern" onclick="showFeatureDetails('safety')">
+                <div class="feature-icon-wrapper green">
+                    <img src="assets/icons/shield-check.svg" alt="Safety Checker" class="feature-icon">
+                </div>
+                <h3>Area Safety Checker</h3>
+                <p>Check if you're in an unsafe area or search any location for detailed crime statistics and safety ratings.</p>
+                <div class="feature-link">
+                    <span>Learn more</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                        <polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="feature-card-modern" onclick="showFeatureDetails('emergency')">
+                <div class="feature-icon-wrapper emergency">
+                    <svg width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="feature-icon">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    </svg>
+                </div>
+                <h3>Emergency Contacts</h3>
+                <p>Quick access to emergency services and important contact numbers based on your location and country.</p>
+                <div class="feature-link">
+                    <span>Learn more</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                        <polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                </div>
+            </div>
         </div>
     </div>
 
+    <!-- Feature Details Modal -->
+    <div id="feature-modal" class="feature-modal" style="display: none;">
+        <div class="feature-modal-content">
+            <button class="close-feature-btn" onclick="closeFeatureDetails()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+            <div id="feature-modal-body">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/feature-details.js"></script>
+
+    <!--CTA Section-->
+    <div class="cta-section">
+        <div class="cta-background">
+            <div class="cta-circle cta-circle-1"></div>
+            <div class="cta-circle cta-circle-2"></div>
+        </div>
+        <div class="cta-content">
+            <div class="cta-icon-group">
+                <div class="cta-icon">
+                    <img src="assets/icons/shield-check.svg" alt="Shield">
+                </div>
+                <div class="cta-icon">
+                    <img src="assets/icons/bell-ringing.svg" alt="Alert">
+                </div>
+                <div class="cta-icon">
+                    <img src="assets/icons/map-trifold.svg" alt="Map">
+                </div>
+            </div>
+            <h2>Make Your Community Safer Today</h2>
+            <p>Join thousands of community members working together to prevent crime and keep neighborhoods safe. It's completely free.</p>
+            <div class="cta-buttons">
+                <button class="cta-btn-primary" onclick="window.location.href='pages/signup.html'">
+                    <span>Get Started Free</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                        <polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                </button>
+                <button class="cta-btn-secondary" onclick="window.location.href='pages/login.html'">
+                    Already have an account? Log in
+                </button>
+            </div>
+            <div class="cta-features">
+                <div class="cta-feature">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span>No credit card required</span>
+                </div>
+                <div class="cta-feature">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span>Free forever</span>
+                </div>
+                <div class="cta-feature">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span>Setup in 2 minutes</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Footer-->
+    <footer class="landing-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="assets/icons/logo.svg" alt="Logo">
+                <span>Community Crime Watch</span>
+            </div>
+            <p class="footer-tagline">Building safer communities through technology and collaboration.</p>
+            <div class="footer-links">
+                <a href="pages/login.html">Login</a>
+                <span>•</span>
+                <a href="pages/signup.html">Sign Up</a>
+                <span>•</span>
+                <a href="pages/map.html">Crime Map</a>
+            </div>
+            <p class="footer-copyright">© 2025 Community Crime Watch. All rights reserved.</p>
+        </div>
+    </footer>
 
 </body>
 

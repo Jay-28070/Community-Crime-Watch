@@ -10,55 +10,245 @@
     <title>Dashboard - Community Crime Watch</title>
 </head>
 
-<body>
-    <nav>
+<body class="dashboard-page">
+    <!-- Navigation -->
+    <nav class="dashboard-nav">
         <div class="main-logo">
-            <img src="../assets/icons/logo.svg" alt="Logo">
-            <a href="../index.html">Community Crime Watch</a>
+            <img src="../assets/icons/logo.svg" alt="Logo" class="logo-pulse">
+            <a href="../index.html" class="logo-text">Community Crime Watch</a>
         </div>
         <div class="links">
-            <a class="login-btn" id="logout-btn" href="#">Log out</a>
+            <a class="logout-btn-modern" id="logout-btn" href="#">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                    <polyline points="16 17 21 12 16 7"/>
+                    <line x1="21" y1="12" x2="9" y2="12"/>
+                </svg>
+                <span>Log out</span>
+            </a>
         </div>
     </nav>
 
-    <!-- Hero section -->
-    <div class="dashboard-hero">
-        <h1>Welcome, <span id="user-name"></span></h1>
-        <p>Access all features to report and track crimes in your community</p>
-    </div>
-
-    <!-- Feature cards -->
-    <div class="dashboard-features">
-        <div class="feature-card">
-            <img src="../assets/icons/camera.svg" alt="Report Crime">
-            <h2>Report Crime</h2>
-            <p>Submit reports via text, photo, or voice. AI categorizes incidents automatically.</p>
-            <button class="feature-btn" onclick="window.location.href='report.html'">Go</button>
+    <!-- Hero Section -->
+    <div class="dashboard-hero-modern">
+        <div class="hero-background">
+            <div class="hero-circle hero-circle-1"></div>
+            <div class="hero-circle hero-circle-2"></div>
         </div>
-
-        <div class="feature-card">
-            <img src="../assets/icons/map-trifold.svg" alt="Crime Map">
-            <h2>Interactive Map</h2>
-            <p>View reported crimes and hotspots with color-coded risk levels in your area.</p>
-            <button class="feature-btn" onclick="window.location.href='map.html'">View Map</button>
-        </div>
-
-
-
-        <div class="feature-card">
-            <img src="../assets/icons/bell-ringing.svg" alt="Safety Alerts">
-            <h2>Safety Alerts</h2>
-            <p>Receive notifications when incidents occur nearby and get preventive advice.</p>
-            <button class="feature-btn" onclick="window.location.href='alerts.html'">View Alerts</button>
-        </div>
-
-        <div class="feature-card">
-            <img src="../assets/icons/shield-check.svg" alt="Area Safety">
-            <h2>Area Safety Checker</h2>
-            <p>Check if you're in an unsafe area or search any location for crime statistics.</p>
-            <button class="feature-btn" onclick="window.location.href='safety.html'">Check Safety</button>
+        <div class="dashboard-hero-content">
+            <div class="welcome-badge">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                </svg>
+                <span>Welcome back</span>
+            </div>
+            <h1 class="dashboard-title">
+                Hello, <span id="user-name" class="gradient-text"></span>
+            </h1>
+            <p class="dashboard-subtitle">Your community safety dashboard is ready. Choose an action below to get started.</p>
         </div>
     </div>
+
+    <!-- Decorative Divider -->
+    <div class="dashboard-divider">
+        <div class="divider-line"></div>
+        <div class="divider-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+        </div>
+        <div class="divider-line"></div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="dashboard-features-modern">
+        <div class="section-header-dashboard">
+            <h2>Quick Actions</h2>
+            <p>Access all features to report and track crimes in your community</p>
+        </div>
+
+        <div class="features-grid-dashboard">
+            <!-- Report Crime -->
+            <div class="feature-card-dashboard" onclick="window.location.href='report.html'">
+                <div class="feature-card-header">
+                    <div class="feature-icon-wrapper blue">
+                        <img src="../assets/icons/camera.svg" alt="Report Crime" class="feature-icon">
+                    </div>
+                </div>
+                <h3>Report Crime</h3>
+                <p>Submit reports via text, photo, or voice. AI categorizes incidents automatically.</p>
+                <div class="feature-action">
+                    <span>Start Report</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                        <polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Interactive Map -->
+            <div class="feature-card-dashboard" onclick="window.location.href='map.html'">
+                <div class="feature-card-header">
+                    <div class="feature-icon-wrapper purple">
+                        <img src="../assets/icons/map-trifold.svg" alt="Crime Map" class="feature-icon">
+                    </div>
+                </div>
+                <h3>Interactive Map</h3>
+                <p>View reported crimes and hotspots with color-coded risk levels in your area.</p>
+                <div class="feature-action">
+                    <span>View Map</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                        <polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Safety Alerts -->
+            <div class="feature-card-dashboard" onclick="window.location.href='alerts.html'">
+                <div class="feature-card-header">
+                    <div class="feature-icon-wrapper red">
+                        <img src="../assets/icons/bell-ringing.svg" alt="Safety Alerts" class="feature-icon">
+                    </div>
+                </div>
+                <h3>Safety Alerts</h3>
+                <p>Receive notifications when incidents occur nearby and get preventive advice.</p>
+                <div class="feature-action">
+                    <span>View Alerts</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                        <polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Area Safety Checker -->
+            <div class="feature-card-dashboard" onclick="window.location.href='safety.html'">
+                <div class="feature-card-header">
+                    <div class="feature-icon-wrapper green">
+                        <img src="../assets/icons/shield-check.svg" alt="Area Safety" class="feature-icon">
+                    </div>
+                </div>
+                <h3>Area Safety Checker</h3>
+                <p>Check if you're in an unsafe area or search any location for crime statistics.</p>
+                <div class="feature-action">
+                    <span>Check Safety</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                        <polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Crime Trends -->
+            <div class="feature-card-dashboard" onclick="window.location.href='trends.html'">
+                <div class="feature-card-header">
+                    <div class="feature-icon-wrapper orange">
+                        <img src="../assets/icons/trend-up.svg" alt="Crime Trends" class="feature-icon">
+                    </div>
+                </div>
+                <h3>Crime Trends</h3>
+                <p>Analyze patterns, identify hotspots, and track crime statistics over time.</p>
+                <div class="feature-action">
+                    <span>View Trends</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                        <polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Emergency Contacts -->
+            <div class="feature-card-dashboard" onclick="showEmergencyContacts()">
+                <div class="feature-card-header">
+                    <div class="feature-icon-wrapper emergency">
+                        <svg width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                        </svg>
+                    </div>
+                </div>
+                <h3>Emergency Contacts</h3>
+                <p>Quick access to emergency services and important contact numbers in your area.</p>
+                <div class="feature-action">
+                    <span>View Contacts</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                        <polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tips Section -->
+    <div class="dashboard-tips">
+        <div class="tips-header">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+            <h3>Safety Tips</h3>
+        </div>
+        <div class="tips-grid">
+            <div class="tip-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                <span>Always report suspicious activity immediately</span>
+            </div>
+            <div class="tip-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                <span>Check the crime map before visiting new areas</span>
+            </div>
+            <div class="tip-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                <span>Enable notifications to stay informed</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Emergency Contacts Modal -->
+    <div id="emergency-modal" class="emergency-modal" style="display: none;">
+        <div class="emergency-modal-content">
+            <div class="emergency-modal-header">
+                <h2>Emergency Contacts</h2>
+                <button class="close-emergency-btn" onclick="closeEmergencyContacts()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="country-selector">
+                <label for="country-select">Select Country:</label>
+                <select id="country-select" onchange="updateEmergencyContacts()">
+                    <option value="US">United States</option>
+                    <option value="UK">United Kingdom</option>
+                    <option value="CA">Canada</option>
+                    <option value="AU">Australia</option>
+                    <option value="ZA">South Africa</option>
+                    <option value="IN">India</option>
+                    <option value="DE">Germany</option>
+                    <option value="FR">France</option>
+                    <option value="JP">Japan</option>
+                    <option value="BR">Brazil</option>
+                </select>
+            </div>
+
+            <div id="emergency-contacts-list" class="emergency-contacts-list">
+                <!-- Contacts will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/emergency-contacts.js"></script>
 </body>
 
 </html>
