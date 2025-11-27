@@ -107,6 +107,9 @@
                         <div class="form-group-modern">
                             <label for="password">Password</label>
                             <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                            <div class="forgot-password-link">
+                                <a href="#" id="forgot-password-link">Forgot your password?</a>
+                            </div>
                         </div>
 
                         <!-- Submit Button -->
@@ -135,6 +138,38 @@
                         <p>Don't have an account? <a href="signup.html">Sign up</a></p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Password Reset Modal -->
+    <div id="reset-password-modal" class="auth-modal" style="display: none;">
+        <div class="auth-modal-content">
+            <div class="auth-modal-header">
+                <h2>Reset Password</h2>
+                <button class="close-modal-btn" id="close-reset-modal">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="auth-modal-body">
+                <p>Enter your email address and we'll send you a link to reset your password.</p>
+                <form id="reset-password-form">
+                    <div class="form-group-modern">
+                        <label for="reset-email">Email Address</label>
+                        <input type="email" id="reset-email" name="reset-email" placeholder="you@example.com" required>
+                    </div>
+                    <div id="reset-message" class="reset-message" style="display: none;"></div>
+                    <button type="submit" class="btn-modern btn-primary">
+                        <span>Send Reset Link</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                            <polyline points="12 5 19 12 12 19"/>
+                        </svg>
+                    </button>
+                </form>
             </div>
         </div>
     </div>

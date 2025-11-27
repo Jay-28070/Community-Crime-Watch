@@ -150,6 +150,80 @@ if (signupForm) {
 }
 
 // -----------------------------
+// PASSWORD RESET
+// -----------------------------
+const forgotPasswordLink = document.getElementById("forgot-password-link");
+const resetPasswordModal = document.getElementById("reset-password-modal");
+const closeResetModal = document.getElementById("close-reset-modal");
+const resetPasswordForm = document.getElementById("reset-password-form");
+const resetMessage = document.getElementById("reset-message");
+
+if (forgotPasswordLink) {
+    // Open modal
+    forgotPasswordLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        resetPasswordModal.style.display = "flex";
+        document.getElementById("reset-email").value = "";
+        resetMessage.style.display = "none";
+    });
+}
+
+if (closeResetModal) {
+    // Close modal
+    closeResetModal.addEventListener("click", () => {
+        resetPasswordModal.style.display = "none";
+    });
+    
+    // Close on outside click
+    resetPasswordModal.addEventListener("click", (e) => {
+        if (e.target === resetPasswordModal) {
+            resetPasswordModal.style.display = "none";
+        }
+    });
+}
+
+if (resetPasswordForm) {
+    resetPasswordForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        
+        const email = document.getElementById("reset-email").value;
+        
+        showLoader();
+        resetMessage.style.display = "none";
+        
+        try {
+            const { sendPasswordResetEmail } = await import("https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js");
+            await sendPasswordResetEmail(auth, email);
+            hideLoader();
+            
+            // Show success message
+            resetMessage.textContent = "Password reset email sent! Please check your inbox.";
+            resetMessage.className = "reset-message success";
+            resetMessage.style.display = "block";
+            
+            // Close modal after 3 seconds
+            setTimeout(() => {
+                resetPasswordModal.style.display = "none";
+            }, 3000);
+        } catch (error) {
+            hideLoader();
+            
+            // Show error message
+            let errorMsg = "Error sending reset email. Please try again.";
+            if (error.code === 'auth/user-not-found') {
+                errorMsg = "No account found with this email address.";
+            } else if (error.code === 'auth/invalid-email') {
+                errorMsg = "Please enter a valid email address.";
+            }
+            
+            resetMessage.textContent = errorMsg;
+            resetMessage.className = "reset-message error";
+            resetMessage.style.display = "block";
+        }
+    });
+}
+
+// -----------------------------
 // EMAIL/PASSWORD LOGIN
 // -----------------------------
 const loginForm = document.getElementById("login-form");
