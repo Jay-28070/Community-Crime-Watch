@@ -19,7 +19,6 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 // Global variables for AI
-let currentPhotoData = null;
 let recognition = null;
 let isRecording = false;
 
@@ -588,40 +587,6 @@ document.getElementById('analyze-voice-btn').addEventListener('click', async () 
     const transcript = document.getElementById('analyze-voice-btn').dataset.transcript;
     if (transcript) {
         await analyzeWithAI(transcript, 'voice');
-    }
-});
-
-// ============================================
-// PHOTO INPUT
-// ============================================
-document.getElementById('photo-input').addEventListener('change', (e) => {
-    const file = e.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            currentPhotoData = event.target.result;
-
-            // Show preview
-            document.getElementById('preview-image').src = currentPhotoData;
-            document.getElementById('photo-preview').style.display = 'block';
-            document.querySelector('.photo-upload-label').style.display = 'none';
-            document.getElementById('analyze-photo-btn').style.display = 'block';
-        };
-        reader.readAsDataURL(file);
-    }
-});
-
-document.getElementById('remove-photo-btn').addEventListener('click', () => {
-    currentPhotoData = null;
-    document.getElementById('photo-input').value = '';
-    document.getElementById('photo-preview').style.display = 'none';
-    document.querySelector('.photo-upload-label').style.display = 'block';
-    document.getElementById('analyze-photo-btn').style.display = 'none';
-});
-
-document.getElementById('analyze-photo-btn').addEventListener('click', async () => {
-    if (currentPhotoData) {
-        await analyzeWithAI(currentPhotoData, 'photo');
     }
 });
 

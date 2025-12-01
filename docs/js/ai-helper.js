@@ -4,11 +4,6 @@
 const HF_API_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2";
 
 export async function analyzeWithHuggingFace(input, type) {
-    if (type === 'photo') {
-        // Photo analysis requires vision models which are more complex
-        // For now, return a fallback
-        return extractInfoManually(input);
-    }
 
     try {
         // Text or voice input - Enhanced prompt to extract all details
@@ -193,4 +188,3 @@ function extractInfoManually(text) {
         incidentType: isPersonal ? 'personal' : 'other'
     };
 }
-

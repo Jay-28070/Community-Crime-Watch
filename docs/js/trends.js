@@ -14,6 +14,59 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+// ============================================
+// FAKE DATA FOR DEMO PURPOSES
+// ============================================
+// This fake data is used to populate the trends page when no real reports exist
+// Remove or comment out this section when you have real crime data
+function generateFakeData() {
+    const existingReports = JSON.parse(localStorage.getItem("crimeReports") || "[]");
+    
+    // Only generate fake data if there are no real reports
+    if (existingReports.length > 0) {
+        return existingReports;
+    }
+    
+    const crimeTypes = ['Theft', 'Burglary', 'Vandalism', 'Vehicle Theft', 'Assault', 'Suspicious Activity', 'Drug Activity'];
+    const locations = [
+        'Main Street', 'Oak Avenue', 'Park Road', 'Downtown', 'Elm Street',
+        'Maple Drive', 'Cedar Lane', 'Pine Street', 'Market Square', 'River Road'
+    ];
+    
+    const fakeReports = [];
+    const now = new Date();
+    
+    // Generate 50 fake reports over the past 30 days
+    for (let i = 0; i < 50; i++) {
+        const daysAgo = Math.floor(Math.random() * 30);
+        const hoursAgo = Math.floor(Math.random() * 24);
+        const reportDate = new Date(now);
+        reportDate.setDate(reportDate.getDate() - daysAgo);
+        reportDate.setHours(hoursAgo);
+        
+        const crimeType = crimeTypes[Math.floor(Math.random() * crimeTypes.length)];
+        const location = locations[Math.floor(Math.random() * locations.length)];
+        
+        fakeReports.push({
+            type: crimeType,
+            address: location,
+            dateTime: reportDate.toISOString(),
+            description: `Fake data for demo - ${crimeType} reported`,
+            lat: 40.7128 + (Math.random() - 0.5) * 0.1, // Fake coordinates near NYC
+            lng: -74.0060 + (Math.random() - 0.5) * 0.1,
+            urgency: ['low', 'medium', 'high'][Math.floor(Math.random() * 3)],
+            status: 'pending',
+            reportedAt: reportDate.toISOString(),
+            isFakeData: true // Flag to identify fake data
+        });
+    }
+    
+    return fakeReports;
+}
+// ============================================
+// END FAKE DATA
+// ============================================
+
 // Protect page
 onAuthStateChanged(auth, user => {
     if (!user) window.location.href = "login.html";
@@ -78,8 +131,8 @@ async function analyzeArea() {
         return;
     }
     
-    // Get all crime reports
-    const reports = JSON.parse(localStorage.getItem("crimeReports") || "[]");
+    // Get all crime reports (FAKE DATA FOR DEMO if no real reports)
+    const reports = generateFakeData();
     
     // For demo purposes, calculate risk based on proximity to a searched location
     // In production, you'd use actual geocoding and radius search
@@ -208,7 +261,8 @@ function displayCrimeBreakdown(breakdown) {
 
 // Overall Statistics
 function loadOverallStats() {
-    const reports = JSON.parse(localStorage.getItem("crimeReports") || "[]");
+    // Use fake data if no real reports exist (FAKE DATA FOR DEMO)
+    const reports = generateFakeData();
     
     // Total reports
     document.getElementById('total-reports').textContent = reports.length;
@@ -248,7 +302,8 @@ function loadOverallStats() {
 
 // Crime Types Chart
 function loadCrimeTypesChart() {
-    const reports = JSON.parse(localStorage.getItem("crimeReports") || "[]");
+    // Use fake data if no real reports exist (FAKE DATA FOR DEMO)
+    const reports = generateFakeData();
     const breakdown = getCrimeBreakdown(reports);
     
     const chartDiv = document.getElementById('crime-types-chart');
@@ -264,7 +319,8 @@ function loadCrimeTypesChart() {
 
 // Time Chart
 function loadTimeChart(period) {
-    const reports = JSON.parse(localStorage.getItem("crimeReports") || "[]");
+    // Use fake data if no real reports exist (FAKE DATA FOR DEMO)
+    const reports = generateFakeData();
     const chartDiv = document.getElementById('time-chart');
     
     if (reports.length === 0) {
@@ -337,7 +393,8 @@ document.querySelectorAll('.time-period').forEach(btn => {
 
 // Safety Tips
 function loadSafetyTips() {
-    const reports = JSON.parse(localStorage.getItem("crimeReports") || "[]");
+    // Use fake data if no real reports exist (FAKE DATA FOR DEMO)
+    const reports = generateFakeData();
     const breakdown = getCrimeBreakdown(reports);
     const mostCommon = getMostCommonCrime(breakdown);
     
