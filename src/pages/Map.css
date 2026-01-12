@@ -1,0 +1,128 @@
+/* Map Page Styles */
+.map-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.map-search-container {
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    width: 90%;
+    max-width: 600px;
+}
+
+.map-search-wrapper {
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 12px;
+    padding: 8px 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.map-search-wrapper .search-icon {
+    color: #666;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.map-search-input {
+    flex: 1;
+    border: none;
+    padding: 12px 0;
+    font-size: 15px;
+    outline: none;
+}
+
+.map-search-btn {
+    padding: 12px 24px;
+    background: linear-gradient(135deg, rgb(57, 136, 255), #5A9FFF);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.map-search-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(57, 136, 255, 0.4);
+}
+
+.map-container {
+    flex: 1;
+    margin-top: 70px;
+    min-height: calc(100vh - 70px);
+    position: relative;
+}
+
+.map-loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8faff;
+}
+
+/* Map Legend */
+.map-legend {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: white;
+    border-radius: 12px;
+    padding: 16px 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+}
+
+.map-legend h4 {
+    margin: 0 0 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+.legend-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #666;
+}
+
+.legend-item span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+@media (max-width: 768px) {
+    .map-search-container {
+        top: 75px;
+        width: 95%;
+    }
+    
+    .map-legend {
+        bottom: 20px;
+        right: 20px;
+        left: 20px;
+    }
+    
+    .legend-items {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}

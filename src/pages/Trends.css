@@ -1,0 +1,305 @@
+/* Trends Page Styles */
+.trends-page {
+    min-height: 100vh;
+    background: #f8faff;
+}
+
+.trends-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* Risk Search Section */
+.risk-search-section {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+}
+
+.risk-search-section h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 20px;
+}
+
+.area-search-wrapper {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.area-search-input {
+    flex: 1;
+    padding: 14px 20px;
+    border: 2px solid #e8e8e8;
+    border-radius: 12px;
+    font-size: 15px;
+    transition: border-color 0.3s ease;
+}
+
+.area-search-input:focus {
+    outline: none;
+    border-color: rgb(57, 136, 255);
+}
+
+.analyze-area-btn {
+    padding: 14px 28px;
+    background: linear-gradient(135deg, rgb(57, 136, 255), #5A9FFF);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.analyze-area-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(57, 136, 255, 0.4);
+}
+
+.analyze-area-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Risk Result */
+.risk-result {
+    margin-top: 24px;
+    padding: 24px;
+    background: #f8f9fa;
+    border-radius: 16px;
+}
+
+.risk-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.risk-header h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.risk-badge {
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+}
+
+.risk-badge.low { background: #28a745; }
+.risk-badge.moderate { background: #ffc107; color: #333; }
+.risk-badge.high { background: #dc3545; }
+
+.risk-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.risk-stat {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: white;
+    border-radius: 12px;
+}
+
+.risk-stat .stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(57, 136, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(57, 136, 255);
+}
+
+.stat-content {
+    flex: 1;
+}
+
+.stat-label {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+.stat-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+
+/* Trends Section */
+.trends-section {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.section-header h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+/* Crime Type Chart */
+.crime-type-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.chart-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.chart-label {
+    width: 140px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    flex-shrink: 0;
+}
+
+.chart-bar-container {
+    flex: 1;
+    height: 32px;
+    background: #f0f4f8;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.chart-bar {
+    height: 100%;
+    background: linear-gradient(135deg, rgb(57, 136, 255), #5A9FFF);
+    border-radius: 8px;
+    transition: width 0.5s ease;
+    min-width: 4px;
+}
+
+.chart-value {
+    width: 40px;
+    text-align: right;
+    font-size: 14px;
+    font-weight: 600;
+    color: #666;
+}
+
+/* Crime Breakdown Section */
+.crime-breakdown-section {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #e8e8e8;
+}
+
+.crime-breakdown-section h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 16px;
+}
+
+.breakdown-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+}
+
+.breakdown-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: white;
+    border-radius: 10px;
+    border: 1px solid #e8e8e8;
+}
+
+.breakdown-type {
+    font-size: 14px;
+    color: #333;
+}
+
+.breakdown-count {
+    font-size: 16px;
+    font-weight: 700;
+    color: rgb(57, 136, 255);
+}
+
+/* Risk Result Error */
+.risk-result.error {
+    background: #fff5f5;
+    border: 1px solid #ffcdd2;
+}
+
+.risk-result.error p {
+    color: #c62828;
+    margin: 0;
+}
+
+/* Feature Icon Wrapper Purple */
+.feature-icon-wrapper.purple {
+    background: linear-gradient(135deg, #9b59b6, #8e44ad);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .chart-bar-row {
+        flex-wrap: wrap;
+    }
+
+    .chart-label {
+        width: 100%;
+    }
+
+    .chart-bar-container {
+        flex: 1;
+        min-width: 150px;
+    }
+
+    .area-search-wrapper {
+        flex-direction: column;
+    }
+
+    .area-search-input,
+    .analyze-area-btn {
+        width: 100%;
+    }
+
+    .breakdown-grid {
+        grid-template-columns: 1fr;
+    }
+}

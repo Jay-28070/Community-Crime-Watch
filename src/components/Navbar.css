@@ -1,0 +1,168 @@
+/* Base nav styles */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  height: 70px;
+  box-sizing: border-box;
+}
+
+.main-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 20px;
+}
+
+.main-logo img {
+  width: 40px;
+  height: 40px;
+}
+
+.main-logo a,
+.main-logo .logo-text {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+.main-logo a:hover {
+  color: rgb(57, 136, 255);
+}
+
+.logo-pulse {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { filter: drop-shadow(0 0 0 rgba(57, 136, 255, 0)); }
+  50% { filter: drop-shadow(0 0 8px rgba(57, 136, 255, 0.5)); }
+}
+
+.links {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+/* Login button */
+.login-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 12px;
+  text-decoration: none;
+  color: black;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.login-btn:hover {
+  border: 2px solid rgb(57, 136, 255);
+  border-radius: 10px;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(57, 136, 255, 0.2);
+}
+
+/* Signup button */
+.signup-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 5px 12px;
+  border: 2px solid rgb(57, 136, 255);
+  background-color: rgb(57, 136, 255);
+  color: white;
+  border-radius: 10px;
+  font-size: 17px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.signup-button:hover {
+  background-color: rgb(36, 81, 150);
+  border-color: rgb(36, 81, 150);
+}
+
+/* Logout button */
+.logout-btn-modern {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.logout-btn-modern:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+}
+
+/* Auth nav link */
+.auth-link {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #666;
+  text-decoration: none;
+}
+
+.auth-link span {
+  color: rgb(57, 136, 255);
+  font-weight: 600;
+}
+
+.auth-link:hover span {
+  text-decoration: underline;
+}
+
+/* Dashboard nav specific */
+.dashboard-nav {
+  background: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* Auth nav specific */
+.auth-nav {
+  background: transparent;
+  box-shadow: none;
+  position: absolute;
+}
+
+@media (max-width: 600px) {
+  nav {
+    padding: 10px 15px;
+  }
+  
+  .main-logo {
+    font-size: 16px;
+  }
+  
+  .main-logo img {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .links {
+    gap: 10px;
+  }
+}
