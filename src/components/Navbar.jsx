@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext'
 import './Navbar.css'
 
 function Navbar({ variant = 'landing' }) {
-    const { currentUser, logout } = useAuth()
+    const { currentUser, userData, logout } = useAuth()
 
     const handleLogout = async () => {
         try {
@@ -11,6 +11,14 @@ function Navbar({ variant = 'landing' }) {
         } catch (error) {
             console.error('Logout error:', error)
         }
+    }
+
+    // Get the home link based on auth state
+    const getHomeLink = () => {
+        if (currentUser) {
+            return userData?.role === 'police' ? '/dashboard-police' : '/dashboard'
+        }
+        return '/'
     }
 
     // Landing page navbar (not logged in)
@@ -46,7 +54,7 @@ function Navbar({ variant = 'landing' }) {
         <nav className="dashboard-nav">
             <div className="main-logo">
                 <img src="/assets/icons/logo.svg" alt="Logo" className="logo-pulse" />
-                <Link to="/" className="logo-text">Community Crime Watch</Link>
+                <Link to={getHomeLink()} className="logo-text">Community Crime Watch</Link>
             </div>
             <div className="links">
                 <button className="logout-btn-modern" onClick={handleLogout}>

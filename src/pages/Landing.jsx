@@ -1,9 +1,29 @@
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
 import Navbar from '../components/Navbar'
+import Loader from '../components/Loader'
 import './Landing.css'
 
 function Landing() {
     const navigate = useNavigate()
+    const { currentUser, userData, loading } = useAuth()
+
+    // Redirect logged-in users to their dashboard
+    useEffect(() => {
+        if (!loading && currentUser) {
+            const dashboardPath = userData?.role === 'police' ? '/dashboard-police' : '/dashboard'
+            navigate(dashboardPath, { replace: true })
+        }
+    }, [currentUser, loading])
+
+    if (loading) {
+        return <Loader message="Loading..." />
+    }
+
+    if (currentUser) {
+        return <Loader message="Redirecting to dashboard..." />
+    }
 
     return (
         <div className="landing-page">
